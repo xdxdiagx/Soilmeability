@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ExeCute.myapplication">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".EquivalentHorizontalActivity"></activity>
+        <activity android:name=".TransmissivityActivity" />
+        <activity android:name=".LeakageFactorActivity" />
+        <activity android:name=".EquivalentVerticalConductivityActivity" />
+        <activity android:name=".EquivalentHorizontalConductivityActivity" />
+        <activity android:name=".AquiferActivity" />
+        <activity android:name=".AbsolutePermeabilityActivity" />
+        <activity android:name=".EquivalentHorizontal" />
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".EquivalentVerticalActivity" />
+        <activity android:name=".ConstantHeadActivity" />
+        <activity android:name=".FallingHeadActivity" />
+        <activity android:name=".SeePageVelocityActivity" />
+        <activity android:name=".FlowRateActivity" />
+        <activity android:name=".DischargeVelocityActivity" />
+        <activity android:name=".HydraulicGradientActivity" />
+        <activity android:name=".FormulaActivity" />
+        <activity android:name=".Book3" />
+        <activity android:name=".Book2" />
+        <activity android:name=".Book1" />
+        <activity android:name=".DiscussionActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.ExeCute.myapplication.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+</manifest>
