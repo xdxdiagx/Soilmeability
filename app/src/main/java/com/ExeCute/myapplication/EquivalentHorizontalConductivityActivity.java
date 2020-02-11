@@ -49,10 +49,9 @@ import java.util.List;
 public class EquivalentHorizontalConductivityActivity extends AppCompatActivity {
 
     double Kh, H, K1, K2, K3, H1, H2, H3;
-    double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_H, m_H, mm_K1, m_K1, mm_K2, m_K2, mm_K3, m_K3, mm_H1, m_H1, mm_H2, m_H2, mm_H3, m_H3;
+    double Kh_min,Kh_hr, Kh_day,K1_min, K1_hr, K1_day, K2_min, K2_hr, K2_day, K3_min, K3_hr, K3_day, H_m, H_mm, H_km, H1_m, H1_mm, H1_km,  H2_m, H2_mm, H2_km,  H3_m, H3_mm, H3_km;
     boolean computed = false;
-    String item;
+    String item, unit, converted_unit;
     EditText num_Kh, num_H, num_K1,num_K2, num_K3, num_H1, num_H2, num_H3;
     Button btn_compute, btn_clear, btn_print;
     TextView missing, answer, converted;
@@ -79,46 +78,51 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
 
         List<String> categories_Kh = new ArrayList<>();
         categories_Kh.add(0, "Choose");
-        categories_Kh.add("cm/hr");
-        categories_Kh.add("cm/day");
-        categories_Kh.add("m/sec");
+        categories_Kh.add("m/min");
         categories_Kh.add("m/hr");
         categories_Kh.add("m/day");
 
         List<String> categories_H = new ArrayList<>();
         categories_H.add(0, "Choose");
-        categories_H.add("mm");
         categories_H.add("m");
+        categories_H.add("mm");
+        categories_H.add("km");
 
         List<String> categories_K1 = new ArrayList<>();
         categories_K1.add(0, "Choose");
-        categories_K1.add("mm");
-        categories_K1.add("m");
+        categories_K1.add("m/min");
+        categories_K1.add("m/hr");
+        categories_K1.add("m/day");
 
         List<String> categories_K2 = new ArrayList<>();
         categories_K2.add(0, "Choose");
-        categories_K2.add("mm");
-        categories_K2.add("m");
+        categories_K1.add("m/min");
+        categories_K1.add("m/hr");
+        categories_K1.add("m/day");
 
         List<String> categories_K3 = new ArrayList<>();
         categories_K3.add(0, "Choose");
-        categories_K3.add("mm");
-        categories_K3.add("m");
+        categories_K1.add("m/min");
+        categories_K1.add("m/hr");
+        categories_K1.add("m/day");
 
         List<String> categories_H1 = new ArrayList<>();
         categories_H1.add(0, "Choose");
-        categories_H1.add("mm");
         categories_H1.add("m");
+        categories_H1.add("mm");
+        categories_H1.add("km");
 
         List<String> categories_H2 = new ArrayList<>();
         categories_H2.add(0, "Choose");
-        categories_H2.add("mm");
-        categories_H2.add("m");
+        categories_H1.add("m");
+        categories_H1.add("mm");
+        categories_H1.add("km");
 
         List<String> categories_H3 = new ArrayList<>();
         categories_H3.add(0, "Choose");
-        categories_H3.add("mm");
-        categories_H3.add("m");
+        categories_H1.add("m");
+        categories_H1.add("mm");
+        categories_H1.add("km");
 
         //Style and populate the spinner
         final ArrayAdapter<String> dataAdapter_Kh;
@@ -228,6 +232,7 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
 
                     missing.setText("The missing variable is Kh");
                     answer.setText("Which has a value of : \n" + Kh  + " cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -250,21 +255,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("cm/hr")){
-                                    cm_hr = Kh * (3600/Kh);
-                                    converted.setText(cm_hr + " cm/hr");
-                                } else if (item.equals("cm/day")){
-                                    cm_day = Kh * 86400;
-                                    converted.setText(cm_day + " cm/day");
-                                } else if (item.equals("m/sec")){
-                                    m_sec = Kh * (0.01/Kh);
-                                    converted.setText(m_sec + " m/sec");
+                                if(item.equals("m/min")){
+                                    Kh_min = Kh * 0.6;
+                                    converted.setText(Kh_min + " m/min");
+                                    converted_unit = "m/min";
                                 } else if (item.equals("m/hr")){
-                                    m_hr = Kh * (36/Kh);
-                                    converted.setText(m_hr + " m/hr");
+                                    Kh_hr = Kh * 3600;
+                                    converted.setText(Kh_hr + " m/hr");
+                                    converted_unit = "m/hr";
                                 } else if (item.equals("m/day")){
-                                    m_day = Kh * 864;
-                                    converted.setText(m_day + " m/day");
+                                    Kh_day = Kh * 864;
+                                    converted.setText(Kh_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -295,6 +297,7 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
 
                     missing.setText("The missing variable is H");
                     answer.setText("Which has a value of : " + H + " cm");
+                    unit = "cm";
 
                     btn_print.setEnabled(computed);
 
@@ -318,12 +321,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H = H * 10;
-                                    converted.setText(mm_H + " mm");
-                                } else if (item.equals("m")){
-                                    m_H = H / 100;
-                                    converted.setText(m_H + " m");
+                                if(item.equals("m")){
+                                    H_m = H * 100;
+                                    converted.setText(H_m + " m");
+                                    converted_unit = "m";
+                                } else if (item.equals("mm")){
+                                    H_mm = H * 10;
+                                    converted.setText(H_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("km")){
+                                    H_km = H * 100000;
+                                    converted.setText(H_km + " km");
+                                    converted_unit = "km";
                                 }
                             }
                         }
@@ -353,7 +362,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                     K1 = ((Kh * H) - (K2 * H2) - (K3 * H3)) / (H1);
                     K1 = Math.round (K1);
                     missing.setText("The missing variable is K1");
-                    answer.setText("Which has a value of : " + K1 + "cm");
+                    answer.setText("Which has a value of : " + K1 + "cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -378,12 +388,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_K1 = K1 * 10;
-                                    converted.setText(mm_K1 + " mm");
-                                } else if (item.equals("m")){
-                                    m_K1 = K1 / 100;
-                                    converted.setText(m_K1 + " m");
+                                if(item.equals("m/min")){
+                                    K1_min = K1 * 0.6;
+                                    converted.setText(K1_min + " m/min");
+                                    converted_unit = "m/min";
+                                } else if (item.equals("m/hr")){
+                                    K1_hr = K1 * 3600;
+                                    converted.setText(K1_hr + " m/hr");
+                                    converted_unit = "m/hr";
+                                } else if (item.equals("m/day")){
+                                    K1_day = K1 * 864;
+                                    converted.setText(K1_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -412,7 +428,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                     K2 = (Kh * - H - K1 * H1 - K3 * H3) / (H2);
                     K2 = Math.round (K2);
                     missing.setText("The missing variable is K2");
-                    answer.setText("Which has a value of : " + K2 + "cm");
+                    answer.setText("Which has a value of : " + K2 + " cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -437,12 +454,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_K2 = K2 * 10;
-                                    converted.setText(mm_K2 + " mm");
-                                } else if (item.equals("m")){
-                                    m_K2 = K2 / 100;
-                                    converted.setText(m_K2 + " m");
+                                if(item.equals("m/min")){
+                                    K2_min = K2 * 0.6;
+                                    converted.setText(K2_min + " m/min");
+                                    converted_unit = "m/min";
+                                } else if (item.equals("m/hr")){
+                                    K2_hr = K2 * 3600;
+                                    converted.setText(K2_hr + " m/hr");
+                                    converted_unit = "m/hr";
+                                } else if (item.equals("m/day")){
+                                    K2_day = K2 * 864;
+                                    converted.setText(K2_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -471,7 +494,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                     K3 = ((Kh * H) - (K1 * H1) - (K2 * H2)) / (H3);
                     K3 = Math.round (K3);
                     missing.setText("The missing variable is K3");
-                    answer.setText("Which has a value of : " + K3 + "cm");
+                    answer.setText("Which has a value of : " + K3 + "cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -496,12 +520,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_K3 = K3 * 10;
-                                    converted.setText(mm_K3 + " mm");
-                                } else if (item.equals("m")){
-                                    m_K3 = K3 / 100;
-                                    converted.setText(m_K3 + " m");
+                                if(item.equals("m/min")){
+                                    K3_min = K3 * 0.6;
+                                    converted.setText(K3_min + " m/min");
+                                    converted_unit = "m/min";
+                                } else if (item.equals("m/hr")){
+                                    K3_hr = K3 * 3600;
+                                    converted.setText(K3_hr + " m/hr");
+                                    converted_unit = "m/hr";
+                                } else if (item.equals("m/day")){
+                                    K3_day = K3 * 864;
+                                    converted.setText(K3_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -530,7 +560,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                     H1 = ((Kh * H) - (K2 * H2) - (K3 * H3)) / (K1);
                     H1 = Math.pow(10, H1);
                     missing.setText("The missing variable is H1");
-                    answer.setText("Which has a value of : " + H1 + "cm");
+                    answer.setText("Which has a value of : " + H1 + " cm");
+                    unit = "cm";
 
                     btn_print.setEnabled(computed);
 
@@ -555,12 +586,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H1 = H1 * 10;
-                                    converted.setText(mm_H1 + " mm");
-                                } else if (item.equals("m")){
-                                    m_H1 = H1 / 100;
-                                    converted.setText(m_H1 + " m");
+                                if(item.equals("m")){
+                                    H1_m = H1 * 100;
+                                    converted.setText(H1_m + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("mm")){
+                                    H1_mm = H1 * 10;
+                                    converted.setText(H1_mm + " m");
+                                    converted_unit = "m";
+                                } else if (item.equals("km")){
+                                    H1_km = H1 * 100000;
+                                    converted.setText(H1_km + " m");
+                                    converted_unit = "km";
                                 }
                             }
                         }
@@ -589,7 +626,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                     H2 = ((Kh * H) - (K1 * H1) - (K3 * H3)) / (K2);
                     H2 = Math.pow(10, H2);
                     missing.setText("The missing variable is H2");
-                    answer.setText("Which has a value of : " + H2 + "cm");
+                    answer.setText("Which has a value of : " + H2 + " cm");
+                    unit = "cm";
 
                     btn_print.setEnabled(computed);
 
@@ -614,12 +652,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H2 = H2 * 10;
-                                    converted.setText(mm_H2 + " mm");
-                                } else if (item.equals("m")){
-                                    m_H2 = H2 / 100;
-                                    converted.setText(m_H2 + " m");
+                                if(item.equals("m")){
+                                    H2_m = H2 * 100;
+                                    converted.setText(H2_m + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("mm")){
+                                    H2_mm = H2 * 10;
+                                    converted.setText(H2_mm + " m");
+                                    converted_unit = "m";
+                                } else if (item.equals("km")){
+                                    H2_km = H2 * 100000;
+                                    converted.setText(H2_km + " m");
+                                    converted_unit = "km";
                                 }
                             }
                         }
@@ -648,7 +692,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                     H3 = ((Kh * H) - (K1 * H1) - (K2 * H2)) / (K3);
                     H3 = Math.pow( 10, H3);
                     missing.setText("The missing variable is H3");
-                    answer.setText("Which has a value of : " + H3 + "cm");
+                    answer.setText("Which has a value of : " + H3 + " cm");
+                    unit = "cm";
 
                     btn_print.setEnabled(computed);
 
@@ -673,12 +718,18 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H3 = H3 * 10;
-                                    converted.setText(mm_H3 + " mm");
-                                } else if (item.equals("m")){
-                                    m_H3 = H3 / 100;
-                                    converted.setText(m_H3 + " m");
+                                if(item.equals("m")){
+                                    H3_m = H3 * 100;
+                                    converted.setText(H3_m + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("mm")){
+                                    H3_mm = H3 * 10;
+                                    converted.setText(H3_mm + " m");
+                                    converted_unit = "m";
+                                } else if (item.equals("km")){
+                                    H3_km = H3 * 100000;
+                                    converted.setText(H3_km + " m");
+                                    converted_unit = "km";
                                 }
                             }
                         }
@@ -746,50 +797,50 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
             Font title = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Equivalent Horizontal Conductivity", Element.ALIGN_CENTER,title);
 
-            Font title_Kh = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_Kh = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for Kh", Element.ALIGN_CENTER,title_Kh);
 
             //Add more
             Font value_Kh = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_Kh.getText().toString(),Element.ALIGN_CENTER,value_Kh);
 
-            Font title_H = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H", Element.ALIGN_CENTER,title_H);
 
             Font value_H = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_H.getText().toString(),Element.ALIGN_CENTER,value_H);
 
-            Font title_K1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_K1 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for K1", Element.ALIGN_CENTER,title_K1);
 
             Font value_K1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_K1.getText().toString(),Element.ALIGN_CENTER,value_K1);
 
-            Font title_K2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_K2 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for K2", Element.ALIGN_CENTER,title_K2);
 
             Font value_K2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_K2.getText().toString(),Element.ALIGN_CENTER,value_K2);
 
-            Font title_K3 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_K3 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for K3", Element.ALIGN_CENTER,title_K3);
 
             Font value_K3 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_K3.getText().toString(),Element.ALIGN_CENTER,value_K3);
 
-            Font title_H1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H1 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H1", Element.ALIGN_CENTER,title_H1);
 
             Font value_H1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_H1.getText().toString(),Element.ALIGN_CENTER,value_H1);
 
-            Font title_H2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H2 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H2", Element.ALIGN_CENTER,title_H2);
 
             Font value_H2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_H2.getText().toString(),Element.ALIGN_CENTER,value_H2);
 
-            Font title_H3 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H3 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H3", Element.ALIGN_CENTER,title_H3);
 
             Font value_H3 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
@@ -799,13 +850,13 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
             addNewItem(document,missing.getText().toString(),Element.ALIGN_CENTER,titleMissing);
 
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
+            addNewItem(document,answer.getText().toString() + unit,Element.ALIGN_CENTER,titleAnswer);
 
-            Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
+            Font titleConverted = new Font(fontName,30.0f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
+            addNewItem(document,converted.getText().toString() + converted_unit,Element.ALIGN_CENTER,titleConvert);
 
             document.close();
 

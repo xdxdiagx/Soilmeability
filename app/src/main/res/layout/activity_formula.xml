@@ -18,16 +18,15 @@
 
 
         <RelativeLayout
-            android:layout_weight="2"
             android:layout_width="match_parent"
-            android:layout_height="0dp">
+            android:layout_height="0dp"
+            android:layout_weight="2">
 
             <Button
                 android:id="@+id/button_back_formula"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_arrow_back_black_24dp"
-                />
+                android:background="@drawable/ic_arrow_back_black_24dp" />
 
             <TextView
                 android:id="@+id/text_formulas"
@@ -40,7 +39,6 @@
                 android:textSize="35sp" />
 
         </RelativeLayout>
-
 
         <GridLayout
             android:id="@+id/gridlayout_formulas"
@@ -88,7 +86,7 @@
                         android:text="Hydraulic Gradient"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -128,7 +126,7 @@
                         android:text="Discharge Velocity"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -252,7 +250,7 @@
                         android:text="Constant Head Test"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -292,7 +290,7 @@
                         android:text="Falling Head Test"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -334,7 +332,7 @@
                         android:text="Equivalent Vertical"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -374,7 +372,7 @@
                         android:text="Equivalent Horizontal"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -416,7 +414,7 @@
                         android:text="Absolute Permeability"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
 
 
@@ -628,6 +626,49 @@
 
 
             </androidx.cardview.widget.CardView>
+
+            <!-- Row 8 -->
+
+            <!-- Column 1 -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="8dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_margin="16dp"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/maths1" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unconfined Aquifer"
+                        android:textAlignment="center"
+                        android:textColor="@android:color/black"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
 
 
 

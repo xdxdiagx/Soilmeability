@@ -78,6 +78,33 @@ public class DiscussionActivity extends AppCompatActivity {
                     } else if (finalI == 2){
                         Intent i = new Intent(DiscussionActivity.this, Book3.class);
                         startActivity(i);
+                    } else if (finalI == 3){
+                        Intent i = new Intent(DiscussionActivity.this, Book4_Discharge_Velocity.class);
+                        startActivity(i);
+                    } else if (finalI == 4){
+                        Intent i = new Intent(DiscussionActivity.this, Book5_Computation_of_Permeability_by_Falling_Head.class);
+                        startActivity(i);
+                    } else if (finalI == 5){
+                        Intent i = new Intent(DiscussionActivity.this, Book6_Aquifers.class);
+                        startActivity(i);
+                    } else if (finalI == 6){
+                        Intent i = new Intent(DiscussionActivity.this, Book7_Aquifers_and_Groundwater.class);
+                        startActivity(i);
+                    } else if (finalI == 7){
+                        Intent i = new Intent(DiscussionActivity.this, Book8_Field_Determination_of_Permiability.class);
+                        startActivity(i);
+                    } else if (finalI == 8){
+                        Intent i = new Intent(DiscussionActivity.this, Book9_Permeability.class);
+                        startActivity(i);
+                    } else if (finalI == 9){
+                        Intent i = new Intent(DiscussionActivity.this, Book10_Transmissivity.class);
+                        startActivity(i);
+                    } else if (finalI == 10){
+                        Intent i = new Intent(DiscussionActivity.this, Book11_Terms.class);
+                        startActivity(i);
+                    } else if (finalI == 11){
+                        Intent i = new Intent(DiscussionActivity.this, Book12_Seepage_and_Soil_Permeability.class);
+                        startActivity(i);
                     }
                     else {
                         Toast.makeText(DiscussionActivity.this, "Please set activity for this card item", Toast.LENGTH_SHORT).show();

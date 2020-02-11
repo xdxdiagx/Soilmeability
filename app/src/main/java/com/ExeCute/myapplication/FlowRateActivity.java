@@ -172,7 +172,7 @@ public class FlowRateActivity extends AppCompatActivity {
                     A = Double.parseDouble(num_A.getText().toString());
 
                     q = K * i * A;
-                    q = q * q * q;
+                    //q = q * q * q;
                     missing.setText("The missing variable is q");
                     answer.setText("Which has a value of : \n" + q  + " cm^3/sec");
 

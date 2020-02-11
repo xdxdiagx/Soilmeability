@@ -46,14 +46,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConstantHeadActivity extends AppCompatActivity {
+public class UnconfinedAquiferActivity extends AppCompatActivity {
 
-    double K , Q, L, A, h, t;
-    double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_K, m_K, mm_Q, m_Q, mm_L, m_L, mm_A, m_A, mm_h, m_h, mm_t, m_t ;
+    double K, Q, logr1, r2, h1, h2;
+    double K_m, K_hr, K_day,Q_m_day, Q_m_hr, Q_cm_hr, r1_cm, r1_mm, r1_c_m,r2_cm, r2_mm, r2_c_m, h1_cm, h1_mm, h1_c_m,h2_cm, h2_mm, h2_c_m;
     boolean computed = false;
-    String item;
-    EditText num_K, num_Q, num_L,num_A, num_h, num_t;
+    String item, unit, converted_unit;
+    EditText num_K, num_Q, num_logr1,num_r2, num_h1, num_h2;
     Button btn_compute, btn_clear, btn_print;
     TextView missing, answer, converted;
 
@@ -63,94 +62,95 @@ public class ConstantHeadActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_constant_head);
+        setContentView(R.layout.activity_unconfined_aquifer);
 
 
         spinner = findViewById(R.id.spinner);
 
-        btn_back = findViewById(R.id.button_back_constant_head);
+        btn_back = findViewById(R.id.button_back_unconfined_aquifer);
         btn_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(ConstantHeadActivity.this, FormulaActivity.class);
+                Intent i = new Intent(UnconfinedAquiferActivity.this, FormulaActivity.class);
                 startActivity(i);
             }
         });
 
         List<String> categories_K = new ArrayList<>();
         categories_K.add(0, "Choose");
-        categories_K.add("mm/sec");
-        categories_K.add("m/sec");
+        categories_K.add("m/min");
+        categories_K.add("m/hr");
+        categories_K.add("m/day");
 
         List<String> categories_Q = new ArrayList<>();
         categories_Q.add(0, "Choose");
-        categories_Q.add("mm");
-        categories_Q.add("m");
+        categories_Q.add("m^3/hr");
+        categories_Q.add("m^3/day");
+        categories_Q.add("cm^3/hr");
 
-        List<String> categories_L = new ArrayList<>();
-        categories_L.add(0, "Choose");
-        categories_L.add("mm");
-        categories_L.add("m");
 
-        List<String> categories_A = new ArrayList<>();
-        categories_A.add(0, "Choose");
-        categories_A.add("mm^2");
-        categories_A.add("m^2");
+        List<String> categories_logr1 = new ArrayList<>();
+        categories_logr1.add(0, "Choose");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
-        List<String> categories_h = new ArrayList<>();
-        categories_h.add(0, "Choose");
-        categories_h.add("mm");
-        categories_h.add("m");
+        List<String> categories_r2 = new ArrayList<>();
+        categories_r2.add(0, "Choose");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
-        List<String> categories_t = new ArrayList<>();
-        categories_t.add(0, "Choose");
-        categories_t.add("hr");
-        categories_t.add("day");
+        List<String> categories_h1 = new ArrayList<>();
+        categories_h1.add(0, "Choose");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
+        List<String> categories_h2 = new ArrayList<>();
+        categories_h2.add(0, "Choose");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
 
         //Style and populate the spinner
         final ArrayAdapter<String> dataAdapter_K;
         final ArrayAdapter<String> dataAdapter_Q;
-        final ArrayAdapter<String> dataAdapter_L;
-        final ArrayAdapter<String> dataAdapter_A;
-        final ArrayAdapter<String> dataAdapter_h;
-        final ArrayAdapter<String> dataAdapter_t;
+        final ArrayAdapter<String> dataAdapter_logr1;
+        final ArrayAdapter<String> dataAdapter_r2;
+        final ArrayAdapter<String> dataAdapter_h1;
+        final ArrayAdapter<String> dataAdapter_h2;
 
         dataAdapter_K = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_K);
         dataAdapter_Q = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_Q);
-        dataAdapter_L = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_L);
-        dataAdapter_A = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_A);
-        dataAdapter_h = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_h);
-        dataAdapter_t = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_t);
-
-
+        dataAdapter_logr1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_logr1);
+        dataAdapter_r2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_r2);
+        dataAdapter_h1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_h1);
+        dataAdapter_h2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories_h2);
 
         //Dropdown layout style
         dataAdapter_K.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dataAdapter_Q.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter_L.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter_A.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter_h.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dataAdapter_t.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
+        dataAdapter_logr1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter_r2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter_h1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter_h2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         //attaching data adapter to spinner
         spinner.setAdapter(dataAdapter_K);
         spinner.setAdapter(dataAdapter_Q);
-        spinner.setAdapter(dataAdapter_L);
-        spinner.setAdapter(dataAdapter_A);
-        spinner.setAdapter(dataAdapter_h);
-        spinner.setAdapter(dataAdapter_t);
+        spinner.setAdapter(dataAdapter_logr1);
+        spinner.setAdapter(dataAdapter_r2);
+        spinner.setAdapter(dataAdapter_h1);
+        spinner.setAdapter(dataAdapter_h2);
 
-
-
-        num_K = findViewById(R.id.edit_text_K4);
-        num_Q = findViewById(R.id.edit_text_Q);
-        num_L = findViewById(R.id.edit_text_L_3);
-        num_A = findViewById(R.id.edit_text_A3);
-        num_h = findViewById(R.id.edit_text_h3);
-        num_t = findViewById(R.id.edit_text_t2);
+        num_K = findViewById(R.id.edit_text_K7);
+        num_Q = findViewById(R.id.edit_text_Q2);
+        num_logr1 = findViewById(R.id.edit_text_logr1_2);
+        num_r2 = findViewById(R.id.edit_text_r2_2);
+        num_h1 = findViewById(R.id.edit_text_h1_2);
+        num_h2 = findViewById(R.id.edit_text_h2_2);
 
         btn_compute =  findViewById(R.id.button_compute);
         missing = findViewById(R.id.text_view_missing);
@@ -168,7 +168,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                             @Override
                             public void onClick(View v) {
-                                createPDFFile(Common.getAppPath(ConstantHeadActivity.this)+"test_pdf.pdf");
+                                createPDFFile(Common.getAppPath(UnconfinedAquiferActivity.this)+"test_pdf.pdf");
                             }
                         });
                     }
@@ -192,23 +192,24 @@ public class ConstantHeadActivity extends AppCompatActivity {
                 converted.setText(" ");
 
                 if(num_K.getText().toString().equals("") && !num_Q.getText().toString().equals("")
-                        && !num_L.getText().toString().equals("") && !num_A.getText().toString().equals("")
-                        && !num_t.getText().toString().equals("") && !num_h.getText().toString().equals("")) {
+                        && !num_logr1.getText().toString().equals("") && !num_r2.getText().toString().equals("")
+                        && !num_h1.getText().toString().equals("")
+                        && !num_h2.getText().toString().equals("")) {
 
                     computed = true;
 
 
                     Q = Double.parseDouble(num_Q.getText().toString());
-                    L = Double.parseDouble(num_L.getText().toString());
-                    A = Double.parseDouble(num_A.getText().toString());
-                    t = Double.parseDouble(num_t.getText().toString());
-                    h = Double.parseDouble(num_h.getText().toString());
+                    logr1 = Double.parseDouble(num_logr1.getText().toString());
+                    r2 = Double.parseDouble(num_r2.getText().toString());
+                    h1 = Double.parseDouble(num_h1.getText().toString());
+                    h2 = Double.parseDouble(num_h2.getText().toString());
 
 
-
-                    K = (Q * L) / (A * h * t);
+                    K = (Q) * Math.log10(logr1 / r2) / (3.14) * (h1 - h2);
                     missing.setText("The missing variable is K");
                     answer.setText("Which has a value of : \n" + K  + " cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -221,7 +222,6 @@ public class ConstantHeadActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if(parent.getItemAtPosition(position).equals("Choose")){
-                                converted.setText(" ");
                                 // item = parent.getItemAtPosition(position).toString();
                                 //Toast.makeText(parent.getContext(), "cm/sec", Toast.LENGTH_SHORT).show();
                             } else {
@@ -231,13 +231,20 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //show selected spinner item
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
+
                                 //Do the calculation here
-                                if(item.equals("mm/sec")){
-                                    mm_K= K * (3600/K);
-                                    converted.setText(mm_K + " cm/hr");
-                                } else if (item.equals("m/sec")){
-                                    m_K = K * 86400;
-                                    converted.setText(m_K + " cm/day");
+                                if(item.equals("m/min")){
+                                    K_m = K * 0.6;
+                                    converted.setText(K_m + " m/min");
+                                    converted_unit = "m/min";
+                                } else if (item.equals("m/hr")){
+                                    K_hr = K * 3600;
+                                    converted.setText(K_hr + " m/hr");
+                                    converted_unit = "m/hr";
+                                } else if (item.equals("m/day")){
+                                    K_day = K * 864;
+                                    converted.setText(K_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -249,22 +256,23 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     });
 
                 } else if(num_Q.getText().toString().equals("") && !num_K.getText().toString().equals("")
-                        && !num_L.getText().toString().equals("") && !num_A.getText().toString().equals("")
-                        && !num_t.getText().toString().equals("") && !num_h.getText().toString().equals("")){
+                        && !num_logr1.getText().toString().equals("") && !num_r2.getText().toString().equals("")
+                        && !num_h1.getText().toString().equals("")
+                        && !num_h2.getText().toString().equals("")){
 
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    L = Double.parseDouble(num_L.getText().toString());
-                    A = Double.parseDouble(num_A.getText().toString());
-                    t = Double.parseDouble(num_t.getText().toString());
-                    h = Double.parseDouble(num_h.getText().toString());
+                    logr1 = Double.parseDouble(num_logr1.getText().toString());
+                    r2 = Double.parseDouble(num_r2.getText().toString());
+                    h1 = Double.parseDouble(num_h1.getText().toString());
+                    h2 = Double.parseDouble(num_h2.getText().toString());
 
-
-                    Q = (K * A * h * t) / L;
+                    Q = (K) * (3.14) * (h1 - h2) / Math.log10(logr1 / r2);
 
                     missing.setText("The missing variable is Q");
-                    answer.setText("Which has a value of : " + Q + " cm");
+                    answer.setText("Which has a value of : " + Q + " cm^3/sec");
+                    unit = "cm^3/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -278,7 +286,6 @@ public class ConstantHeadActivity extends AppCompatActivity {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if(parent.getItemAtPosition(position).equals("Choose")){
-                                converted.setText(" ");
                                 //item = parent.getItemAtPosition(position).toString();
                                 // Toast.makeText(parent.getContext(), "centimeter", Toast.LENGTH_SHORT).show();
                             } else {
@@ -289,12 +296,18 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm/sec")){
-                                    mm_K = K * 10;
-                                    converted.setText(mm_K + " mm/sec");
-                                } else if (item.equals("m")){
-                                    m_K = K / 100;
-                                    converted.setText(mm_K + " m/sec");
+                                if(item.equals("m^3/hr")){
+                                    Q_m_hr = Q * 11.574;
+                                    converted.setText(Q_m_hr+ " mm");
+                                    converted_unit = "m^3/hr";
+                                } else if (item.equals("m^3/day")){
+                                    Q_m_day = Q * 277.778;
+                                    converted.setText(Q_m_day + " m^3/day");
+                                    converted_unit = "m^3/day";
+                                } else if (item.equals("cm^3/hr")){
+                                    Q_cm_hr = Q * 36000;
+                                    converted.setText(Q_cm_hr + " cm^3/hr");
+                                    converted_unit = "cm^3/hr";
                                 }
                             }
                         }
@@ -306,22 +319,23 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     });
 
 
-                } else if(num_L.getText().toString().equals("") && !num_K.getText().toString().equals("")
-                        && !num_Q.getText().toString().equals("") && !num_A.getText().toString().equals("")
-                        && !num_t.getText().toString().equals("") && !num_h.getText().toString().equals("")){
+                } else if(num_logr1.getText().toString().equals("") && !num_K.getText().toString().equals("")
+                        && !num_Q.getText().toString().equals("") && !num_r2.getText().toString().equals("")
+                        && !num_h1.getText().toString().equals("")
+                        && !num_h2.getText().toString().equals("")){
 
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
-                    A = Double.parseDouble(num_A.getText().toString());
-                    t = Double.parseDouble(num_t.getText().toString());
-                    h = Double.parseDouble(num_h.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
+                    r2 = Double.parseDouble(num_r2.getText().toString());
+                    h1 = Double.parseDouble(num_h1.getText().toString());
+                    h2 = Double.parseDouble(num_h2.getText().toString());
 
-
-                    L = (K * A * h * t) / Q;
-                    missing.setText("The missing variable is L");
-                    answer.setText("Which has a value of : " + L + "cm");
+                    logr1 = Math.pow(r2, (K) * (3.14) * (h1 - h2) / Q);    //Little bit confuse of the formula
+                    missing.setText("The missing variable is logr1");
+                    answer.setText("Which has a value of : " + logr1 + "m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -329,7 +343,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     //answer.setText(toString().valueOf(L));
 
                     //attaching data adapter to spinner
-                    spinner.setAdapter(dataAdapter_L);
+                    spinner.setAdapter(dataAdapter_logr1);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -346,12 +360,18 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_L = L * 10;
-                                    converted.setText(mm_L + " mm");
-                                } else if (item.equals("m")){
-                                    m_L = L / 100;
-                                    converted.setText(m_L + " m");
+                                if(item.equals("cm")){
+                                    r1_cm = logr1 * 100;
+                                    converted.setText(r1_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    r1_mm = logr1 * 10000;
+                                    converted.setText(r1_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    r1_c_m = logr1 * 10;
+                                    converted.setText(r1_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -362,23 +382,23 @@ public class ConstantHeadActivity extends AppCompatActivity {
                         }
                     });
 
-                } else if(num_A.getText().toString().equals("") && !num_K.getText().toString().equals("")
-                        && !num_Q.getText().toString().equals("") && !num_L.getText().toString().equals("")
-                        && !num_t.getText().toString().equals("") && !num_h.getText().toString().equals("")){
+                } else if(num_r2.getText().toString().equals("") && !num_K.getText().toString().equals("")
+                        && !num_Q.getText().toString().equals("") && !num_logr1.getText().toString().equals("")
+                        && !num_h1.getText().toString().equals("")
+                        && !num_h2.getText().toString().equals("")){
 
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
-                    L = Double.parseDouble(num_L.getText().toString());
-                    t = Double.parseDouble(num_t.getText().toString());
-                    h = Double.parseDouble(num_h.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
+                    logr1 = Double.parseDouble(num_logr1.getText().toString());
+                    h1 = Double.parseDouble(num_h1.getText().toString());
+                    h2 = Double.parseDouble(num_h2.getText().toString());
 
-
-                    A = (Q * L) / (K * h * t);
-                    A = A * A;
-                    missing.setText("The missing variable is A");
-                    answer.setText("Which has a value of : " + A + "cm^2");
+                    r2 =  (logr1) / Math.pow(1, (K) * (3.14) * (h1 - h2) / Q);     //Little bit confuse of the formula
+                    missing.setText("The missing variable is r2");
+                    answer.setText("Which has a value of : " + r2 + " m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -386,7 +406,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     //answer.setText(toString().valueOf(L));
 
                     //attaching data adapter to spinner
-                    spinner.setAdapter(dataAdapter_A);
+                    spinner.setAdapter(dataAdapter_r2);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -403,14 +423,18 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm^2")){
-                                    mm_A = A * 10;
-                                    mm_A = mm_A * mm_A;
-                                    converted.setText(mm_A + " mm^2");
-                                } else if (item.equals("m")){
-                                    m_A = A / 100;
-                                    m_A = m_A * m_A;
-                                    converted.setText(m_A + " m^2");
+                                if(item.equals("cm")){
+                                    r2_cm = r2 * 100;
+                                    converted.setText(r2_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    r2_mm = r2 * 10000;
+                                    converted.setText(r2_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    r2_c_m = r2 * 10;
+                                    converted.setText(r2_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -421,21 +445,22 @@ public class ConstantHeadActivity extends AppCompatActivity {
                         }
                     });
 
-                } else if(num_h.getText().toString().equals("") && !num_K.getText().toString().equals("")
-                        && !num_Q.getText().toString().equals("") && !num_L.getText().toString().equals("")
-                        && !num_A.getText().toString().equals("") && !num_t.getText().toString().equals("")){
+                } else if(num_h1.getText().toString().equals("") && !num_K.getText().toString().equals("")
+                        && !num_Q.getText().toString().equals("") && !num_logr1.getText().toString().equals("")
+                        && !num_r2.getText().toString().equals("") && !num_h2.getText().toString().equals("")){
 
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
-                    L = Double.parseDouble(num_L.getText().toString());
-                    A = Double.parseDouble(num_A.getText().toString());
-                    t = Double.parseDouble(num_t.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
+                    logr1 = Double.parseDouble(num_logr1.getText().toString());
+                    r2 = Double.parseDouble(num_r2.getText().toString());
+                    h2 = Double.parseDouble(num_h2.getText().toString());
 
-                    h = (Q * L) / (K * A * t);
-                    missing.setText("The missing variable is h");
-                    answer.setText("Which has a value of : " + h + "cm");
+                    h1 = (h2) + (Q * Math.log10(logr1 / r2) / (K) * (3.14));
+                    missing.setText("The missing variable is h1");
+                    answer.setText("Which has a value of : " + h1 + " m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -443,7 +468,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     //answer.setText(toString().valueOf(L));
 
                     //attaching data adapter to spinner
-                    spinner.setAdapter(dataAdapter_h);
+                    spinner.setAdapter(dataAdapter_h1);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -460,12 +485,18 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_h = h * 10;
-                                    converted.setText(mm_h + " mm");
-                                } else if (item.equals("m")){
-                                    m_h = h / 100;
-                                    converted.setText(m_h + " m");
+                                if(item.equals("cm")){
+                                    h1_cm = h1 * 100;
+                                    converted.setText(h1_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    h1_mm = h1 * 10000;
+                                    converted.setText(h1_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    h1_c_m = h1 * 10;
+                                    converted.setText(h1_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -476,21 +507,22 @@ public class ConstantHeadActivity extends AppCompatActivity {
                         }
                     });
 
-                } else if(num_t.getText().toString().equals("") && !num_K.getText().toString().equals("")
-                        && !num_Q.getText().toString().equals("") && !num_L.getText().toString().equals("")
-                        && !num_A.getText().toString().equals("") && !num_h.getText().toString().equals("")){
+                } else if(num_h2.getText().toString().equals("") && !num_K.getText().toString().equals("")
+                        && !num_Q.getText().toString().equals("") && !num_logr1.getText().toString().equals("")
+                        && !num_r2.getText().toString().equals("") && !num_h1.getText().toString().equals("")){
 
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
-                    L = Double.parseDouble(num_L.getText().toString());
-                    A = Double.parseDouble(num_A.getText().toString());
-                    h = Double.parseDouble(num_h.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
+                    logr1 = Double.parseDouble(num_logr1.getText().toString());
+                    r2 = Double.parseDouble(num_r2.getText().toString());
+                    h1 = Double.parseDouble(num_h1.getText().toString());
 
-                    t = (Q * L) / (K * A * h);
-                    missing.setText("The missing variable is t");
-                    answer.setText("Which has a value of : " + t + "sec");
+                    h2 = (K / Q * logr1) * Math.log10(h1) / (r2);
+                    missing.setText("The missing variable is h2");
+                    answer.setText("Which has a value of : " + h2 + " m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -498,7 +530,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     //answer.setText(toString().valueOf(L));
 
                     //attaching data adapter to spinner
-                    spinner.setAdapter(dataAdapter_t);
+                    spinner.setAdapter(dataAdapter_h2);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
@@ -515,12 +547,18 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("hr")){
-                                    mm_t = t * 10;
-                                    converted.setText(mm_t + " hr");
-                                } else if (item.equals("day")){
-                                    m_t = t / 100;
-                                    converted.setText(m_t + " day");
+                                if(item.equals("cm")){
+                                    h2_cm = h2 * 100;
+                                    converted.setText(h2_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    h2_mm = h2 * 10000;
+                                    converted.setText(h2_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    h2_c_m = h2 * 10;
+                                    converted.setText(h2_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -531,8 +569,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                         }
                     });
 
-                }
-                else {
+                } else {
                     computed = false;
                     missing.setText("Error! ");
                     answer.setText("Don't leave all the fields empty / Don't fill up all fields, just leave 1 empty field");
@@ -586,7 +623,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
 
             //Create Title of Document
             Font title = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
-            addNewItem(document,"Constant Head Test", Element.ALIGN_CENTER,title);
+            addNewItem(document,"Aquifer", Element.ALIGN_CENTER,title);
 
             Font title_K = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for K", Element.ALIGN_CENTER,title_K);
@@ -601,44 +638,42 @@ public class ConstantHeadActivity extends AppCompatActivity {
             Font value_Q = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_Q.getText().toString(),Element.ALIGN_CENTER,value_Q);
 
-            Font title_L = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
-            addNewItem(document,"Value for L", Element.ALIGN_CENTER,title_L);
+            Font title_logr1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            addNewItem(document,"Value for logr1", Element.ALIGN_CENTER,title_logr1);
 
-            Font value_L = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,num_L.getText().toString(),Element.ALIGN_CENTER,value_L);
+            Font value_logr1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,num_logr1.getText().toString(),Element.ALIGN_CENTER,value_logr1);
 
-            Font title_A = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
-            addNewItem(document,"Value for A", Element.ALIGN_CENTER,title_A);
+            Font title_r2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            addNewItem(document,"Value for r2", Element.ALIGN_CENTER,title_r2);
 
-            Font value_A = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,num_A.getText().toString(),Element.ALIGN_CENTER,value_A);
+            Font value_r2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,num_r2.getText().toString(),Element.ALIGN_CENTER,value_r2);
 
-            Font title_h = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
-            addNewItem(document,"Value for h", Element.ALIGN_CENTER,title_h);
+            Font title_h1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            addNewItem(document,"Value for h1", Element.ALIGN_CENTER,title_h1);
 
-            Font value_h = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,num_h.getText().toString(),Element.ALIGN_CENTER,value_h);
+            Font value_h1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,num_h1.getText().toString(),Element.ALIGN_CENTER,value_h1);
 
-            Font title_t = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
-            addNewItem(document,"Value for t", Element.ALIGN_CENTER,title_t);
+            Font title_h2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            addNewItem(document,"Value for h2", Element.ALIGN_CENTER,title_h2);
 
-            Font value_t = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,num_t.getText().toString(),Element.ALIGN_CENTER,value_t);
-
-
+            Font value_h2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,num_h2.getText().toString(),Element.ALIGN_CENTER,value_h2);
 
 
             Font titleMissing = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,missing.getText().toString(),Element.ALIGN_CENTER,titleMissing);
 
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
+            addNewItem(document,answer.getText().toString() + unit,Element.ALIGN_CENTER,titleAnswer);
 
             Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
+            addNewItem(document,converted.getText().toString() + converted_unit,Element.ALIGN_CENTER,titleConvert);
 
             document.close();
 
@@ -662,7 +697,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
     private void printPDF() {
         PrintManager printManager = (PrintManager)getSystemService(Context.PRINT_SERVICE);
         try{
-            PrintDocumentAdapter printDocumentAdapter = new PdfDocumentAdapter(ConstantHeadActivity.this,Common.getAppPath(ConstantHeadActivity.this)+"test_pdf.pdf");
+            PrintDocumentAdapter printDocumentAdapter = new PdfDocumentAdapter(UnconfinedAquiferActivity.this,Common.getAppPath(UnconfinedAquiferActivity.this)+"test_pdf.pdf");
             printManager.print("Document",printDocumentAdapter,new PrintAttributes.Builder().build());
 
         } catch (Exception ex){

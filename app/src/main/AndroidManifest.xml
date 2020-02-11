@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ExeCute.myapplication">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,7 +13,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EquivalentHorizontalActivity"></activity>
+        <activity android:name=".Book12_Seepage_and_Soil_Permeability"></activity>
+        <activity android:name=".Book11_Terms" />
+        <activity android:name=".Book10_Transmissivity" />
+        <activity android:name=".Book9_Permeability" />
+        <activity android:name=".Book8_Field_Determination_of_Permiability" />
+        <activity android:name=".Book7_Aquifers_and_Groundwater" />
+        <activity android:name=".Book6_Aquifers" />
+        <activity android:name=".Book5_Computation_of_Permeability_by_Falling_Head" />
+        <activity android:name=".Book4_Discharge_Velocity" />
+        <activity android:name=".UnconfinedAquiferActivity" />
+        <activity android:name=".EquivalentHorizontalActivity" />
         <activity android:name=".TransmissivityActivity" />
         <activity android:name=".LeakageFactorActivity" />
         <activity android:name=".EquivalentVerticalConductivityActivity" />
@@ -48,9 +62,5 @@
                 android:resource="@xml/provider_paths" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.BLUETOOTH" />
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

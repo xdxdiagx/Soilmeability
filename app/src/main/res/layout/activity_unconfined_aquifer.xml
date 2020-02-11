@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/light_brown_bg"
     android:layout_weight="2"
-    tools:context=".AquiferActivity">
+    tools:context=".UnconfinedAquiferActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,28 +14,28 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/button_back_aquifer"
+            android:id="@+id/button_back_unconfined_aquifer"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/ic_arrow_back_black_24dp"
             />
 
         <TextView
-            android:id="@+id/text_view_aquifer"
+            android:id="@+id/text_view_unconfined_aquifer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
-            android:text="Confined Aquifer"
+            android:text="Unconfined Aquifer"
             android:textColor="@android:color/white"
             android:textAlignment="center"
 
             android:textSize="36sp" />
 
         <EditText
-            android:id="@+id/edit_text_K6"
+            android:id="@+id/edit_text_K7"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/text_view_aquifer"
+            android:layout_below="@id/text_view_unconfined_aquifer"
 
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
@@ -50,10 +50,10 @@
             android:inputType="numberDecimal|numberSigned" />
 
         <EditText
-            android:id="@+id/edit_text_Q"
+            android:id="@+id/edit_text_Q2"
             android:layout_width="177dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_text_K6"
+            android:layout_below="@id/edit_text_K7"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"
@@ -67,7 +67,7 @@
             android:inputType="numberDecimal|numberSigned" />
 
         <EditText
-            android:id="@+id/edit_text_logr1"
+            android:id="@+id/edit_text_logr1_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -79,12 +79,12 @@
             android:layout_marginTop="21dp"
             android:layout_marginEnd="100dp"
             android:layout_marginRight="100dp"
-            android:layout_below="@id/edit_text_Q"
+            android:layout_below="@id/edit_text_Q2"
             android:hint="Enter the value for logr1"
             android:inputType="numberDecimal|numberSigned" />
 
         <EditText
-            android:id="@+id/edit_text_r2"
+            android:id="@+id/edit_text_r2_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -96,12 +96,12 @@
             android:layout_marginTop="21dp"
             android:layout_marginEnd="100dp"
             android:layout_marginRight="100dp"
-            android:layout_below="@id/edit_text_logr1"
+            android:layout_below="@id/edit_text_logr1_2"
             android:hint="Enter the value for r2"
             android:inputType="numberDecimal|numberSigned" />
 
         <EditText
-            android:id="@+id/edit_text_t3"
+            android:id="@+id/edit_text_h1_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -113,29 +113,12 @@
             android:layout_marginTop="21dp"
             android:layout_marginEnd="100dp"
             android:layout_marginRight="100dp"
-            android:layout_below="@id/edit_text_r2"
-            android:hint="Enter the value for t"
-            android:inputType="numberDecimal|numberSigned" />
-
-        <EditText
-            android:id="@+id/edit_text_h1_2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginStart="118dp"
-            android:layout_marginLeft="118dp"
-            android:layout_marginTop="21dp"
-            android:layout_marginEnd="100dp"
-            android:layout_marginRight="100dp"
-            android:layout_below="@id/edit_text_t3"
+            android:layout_below="@id/edit_text_r2_2"
             android:hint="Enter the value for h1"
             android:inputType="numberDecimal|numberSigned" />
 
         <EditText
-            android:id="@+id/edit_text_h2_2"
+            android:id="@+id/edit_text_h2_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -147,7 +130,7 @@
             android:layout_marginTop="21dp"
             android:layout_marginEnd="100dp"
             android:layout_marginRight="100dp"
-            android:layout_below="@id/edit_text_h1_2"
+            android:layout_below="@id/edit_text_h1_3"
             android:hint="Enter the value for H2"
             android:inputType="numberDecimal|numberSigned" />
 
@@ -155,7 +138,7 @@
             android:id="@+id/button_compute"
             android:layout_width="172dp"
             android:layout_height="wrap_content"
-            android:layout_below="@id/edit_text_h2_2"
+            android:layout_below="@id/edit_text_h2_3"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentEnd="true"

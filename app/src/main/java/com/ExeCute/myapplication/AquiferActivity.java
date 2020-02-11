@@ -49,10 +49,9 @@ import java.util.List;
 public class AquiferActivity extends AppCompatActivity {
 
     double K, Q, logr1, r2, t, h1, h2;
-    double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_K, m_K, mm_Q, m_Q, mm_logr1, m_logr1, mm_r2, m_r2, mm_t, m_t, mm_h1, m_h1, mm_h2, m_h2;
+    double K_m, K_hr, K_day,Q_m_day, Q_m_hr, Q_cm_hr, r1_cm, r1_mm, r1_c_m,r2_cm, r2_mm, r2_c_m, h1_cm, h1_mm, h1_c_m,h2_cm, h2_mm, h2_c_m, t_min, t_hr, t_day;
     boolean computed = false;
-    String item;
+    String item, unit, converted_unit;
     EditText num_K, num_Q, num_logr1,num_r2, num_t, num_h1, num_h2;
     Button btn_compute, btn_clear, btn_print;
     TextView missing, answer, converted;
@@ -79,42 +78,46 @@ public class AquiferActivity extends AppCompatActivity {
 
         List<String> categories_K = new ArrayList<>();
         categories_K.add(0, "Choose");
-        categories_K.add("cm/hr");
-        categories_K.add("cm/day");
-        categories_K.add("m/sec");
+        categories_K.add("m/min");
         categories_K.add("m/hr");
         categories_K.add("m/day");
 
         List<String> categories_Q = new ArrayList<>();
         categories_Q.add(0, "Choose");
-        categories_Q.add("mm");
-        categories_Q.add("m");
+        categories_Q.add("m^3/hr");
+        categories_Q.add("m^3/day");
+        categories_Q.add("cm^3/hr");
 
 
         List<String> categories_logr1 = new ArrayList<>();
         categories_logr1.add(0, "Choose");
+        categories_logr1.add("cm");
         categories_logr1.add("mm");
-        categories_logr1.add("m");
+        categories_logr1.add("c/m");
 
         List<String> categories_r2 = new ArrayList<>();
         categories_r2.add(0, "Choose");
-        categories_r2.add("mm");
-        categories_r2.add("m");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
         List<String> categories_t = new ArrayList<>();
         categories_t.add(0, "Choose");
-        categories_t.add("mm");
-        categories_t.add("m");
+        categories_logr1.add("min");
+        categories_logr1.add("hr");
+        categories_logr1.add("day");
 
         List<String> categories_h1 = new ArrayList<>();
         categories_h1.add(0, "Choose");
-        categories_h1.add("mm");
-        categories_h1.add("m");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
         List<String> categories_h2 = new ArrayList<>();
         categories_h2.add(0, "Choose");
-        categories_h2.add("mm");
-        categories_h2.add("m");
+        categories_logr1.add("cm");
+        categories_logr1.add("mm");
+        categories_logr1.add("c/m");
 
 
         //Style and populate the spinner
@@ -218,6 +221,7 @@ public class AquiferActivity extends AppCompatActivity {
                     K = (Q) * Math.log10(logr1 / r2) / (3.14 * t) * (h1 - h2);
                     missing.setText("The missing variable is K");
                     answer.setText("Which has a value of : \n" + K  + " cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -239,22 +243,20 @@ public class AquiferActivity extends AppCompatActivity {
                                 //show selected spinner item
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
+
                                 //Do the calculation here
-                                if(item.equals("cm/hr")){
-                                    cm_hr = K * (3600/K);
-                                    converted.setText(cm_hr + " cm/hr");
-                                } else if (item.equals("cm/day")){
-                                    cm_day = K * 86400;
-                                    converted.setText(cm_day + " cm/day");
-                                } else if (item.equals("m/sec")){
-                                    m_sec = K * (0.01/K);
-                                    converted.setText(m_sec + " m/sec");
+                                if(item.equals("m/min")){
+                                    K_m = K * 0.6;
+                                    converted.setText(K_m + " m/min");
+                                    converted_unit = "m/min";
                                 } else if (item.equals("m/hr")){
-                                    m_hr = K * (36/K);
-                                    converted.setText(m_hr + " m/hr");
+                                    K_hr = K * 3600;
+                                    converted.setText(K_hr + " m/hr");
+                                    converted_unit = "m/hr";
                                 } else if (item.equals("m/day")){
-                                    m_day = K * 864;
-                                    converted.setText(m_day + " m/day");
+                                    K_day = K * 864;
+                                    converted.setText(K_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -282,7 +284,8 @@ public class AquiferActivity extends AppCompatActivity {
                     Q = (K) * (3.14 * t) * (h1 - h2) / Math.log10(logr1 / r2);
 
                     missing.setText("The missing variable is Q");
-                    answer.setText("Which has a value of : " + Q + " cm");
+                    answer.setText("Which has a value of : " + Q + " cm^3/sec");
+                    unit = "cm^3/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -306,12 +309,18 @@ public class AquiferActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_Q = Q * 10;
-                                    converted.setText(mm_Q + " mm");
-                                } else if (item.equals("m")){
-                                    m_Q = Q / 100;
-                                    converted.setText(m_Q + " m");
+                                if(item.equals("m^3/hr")){
+                                    Q_m_hr = Q * 11.574;
+                                    converted.setText(Q_m_hr+ " mm");
+                                    converted_unit = "m^3/hr";
+                                } else if (item.equals("m^3/day")){
+                                    Q_m_day = Q * 277.778;
+                                    converted.setText(Q_m_day + " m^3/day");
+                                    converted_unit = "m^3/day";
+                                } else if (item.equals("cm^3/hr")){
+                                    Q_cm_hr = Q * 36000;
+                                    converted.setText(Q_cm_hr + " cm^3/hr");
+                                    converted_unit = "cm^3/hr";
                                 }
                             }
                         }
@@ -339,7 +348,8 @@ public class AquiferActivity extends AppCompatActivity {
 
                     logr1 = Math.pow(r2, (K) * (3.14 * t) * (h1 - h2) / Q);    //Little bit confuse of the formula
                     missing.setText("The missing variable is logr1");
-                    answer.setText("Which has a value of : " + logr1 + "cm");
+                    answer.setText("Which has a value of : " + logr1 + "m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -364,12 +374,18 @@ public class AquiferActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_logr1 = logr1 * 10;
-                                    converted.setText(mm_logr1 + " mm");
-                                } else if (item.equals("m")){
-                                    m_logr1 = logr1 / 100;
-                                    converted.setText(m_logr1 + " m");
+                                if(item.equals("cm")){
+                                    r1_cm = logr1 * 100;
+                                    converted.setText(r1_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    r1_mm = logr1 * 10000;
+                                    converted.setText(r1_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    r1_c_m = logr1 * 10;
+                                    converted.setText(r1_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -396,7 +412,8 @@ public class AquiferActivity extends AppCompatActivity {
 
                     r2 =  (logr1) / Math.pow(1, (K) * (3.14 * t) * (h1 - h2) / Q);     //Little bit confuse of the formula
                     missing.setText("The missing variable is r2");
-                    answer.setText("Which has a value of : " + r2 + "cm");
+                    answer.setText("Which has a value of : " + r2 + " m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -421,12 +438,18 @@ public class AquiferActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_r2 = r2 * 10;
-                                    converted.setText(mm_r2 + " mm");
-                                } else if (item.equals("m")){
-                                    m_r2 = r2 / 100;
-                                    converted.setText(m_r2 + " m");
+                                if(item.equals("cm")){
+                                    r2_cm = r2 * 100;
+                                    converted.setText(r2_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    r2_mm = r2 * 10000;
+                                    converted.setText(r2_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    r2_c_m = r2 * 10;
+                                    converted.setText(r2_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -478,12 +501,18 @@ public class AquiferActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_t = t * 10;
-                                    converted.setText(mm_t + " mm");
-                                } else if (item.equals("m")){
-                                    m_t = t / 100;
-                                    converted.setText(m_t + " m");
+                                if(item.equals("min")){
+                                    t_min = t * 0.000278;
+                                    converted.setText(t_min + " min");
+                                    converted_unit = "min";
+                                } else if (item.equals("hr")){
+                                    t_hr = t * 0.0167;
+                                    converted.setText(t_hr + " hr");
+                                    converted_unit = "hr";
+                                } else if (item.equals("day")){
+                                    t_day = t * 86400;
+                                    converted.setText(t_day + " day");
+                                    converted_unit = "day";
                                 }
                             }
                         }
@@ -510,7 +539,8 @@ public class AquiferActivity extends AppCompatActivity {
 
                     h1 = (h2) + (Q * Math.log10(logr1 / r2) / (K) * (2 * 3.14 * t));
                     missing.setText("The missing variable is h1");
-                    answer.setText("Which has a value of : " + h1 + "cm");
+                    answer.setText("Which has a value of : " + h1 + " m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -535,12 +565,18 @@ public class AquiferActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_h1 = h1 * 10;
-                                    converted.setText(mm_h1 + " mm");
-                                } else if (item.equals("m")){
-                                    m_h1 = h1 / 100;
-                                    converted.setText(m_h1 + " m");
+                                if(item.equals("cm")){
+                                    h1_cm = h1 * 100;
+                                    converted.setText(h1_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    h1_mm = h1 * 10000;
+                                    converted.setText(h1_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    h1_c_m = h1 * 10;
+                                    converted.setText(h1_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -567,7 +603,8 @@ public class AquiferActivity extends AppCompatActivity {
 
                     h2 = (K / Q * logr1) * Math.log10(h1) / (r2 * t);
                     missing.setText("The missing variable is h2");
-                    answer.setText("Which has a value of : " + h2 + "cm");
+                    answer.setText("Which has a value of : " + h2 + " m");
+                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -592,12 +629,18 @@ public class AquiferActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_h2 = h2 * 10;
-                                    converted.setText(mm_h2 + " mm");
-                                } else if (item.equals("m")){
-                                    m_h2 = h2 / 100;
-                                    converted.setText(m_h2 + " m");
+                                if(item.equals("cm")){
+                                    h2_cm = h2 * 100;
+                                    converted.setText(h2_cm + " cm");
+                                    converted_unit = "cm";
+                                } else if (item.equals("mm")){
+                                    h2_mm = h2 * 10000;
+                                    converted.setText(h2_mm + " mm");
+                                    converted_unit = "mm";
+                                } else if (item.equals("c/m")){
+                                    h2_c_m = h2 * 10;
+                                    converted.setText(h2_c_m + " c/m");
+                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -712,13 +755,13 @@ public class AquiferActivity extends AppCompatActivity {
             addNewItem(document,missing.getText().toString(),Element.ALIGN_CENTER,titleMissing);
 
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
+            addNewItem(document,answer.getText().toString() + unit,Element.ALIGN_CENTER,titleAnswer);
 
             Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
+            addNewItem(document,converted.getText().toString() + converted_unit,Element.ALIGN_CENTER,titleConvert);
 
             document.close();
 

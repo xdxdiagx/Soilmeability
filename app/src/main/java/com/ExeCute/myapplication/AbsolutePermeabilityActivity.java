@@ -50,9 +50,10 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
 
     double k , K, N, Y;
     double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_k, m_k, mm_K, m_K, mm_N, m_N, mm_Y, m_Y ;
+    double K_min, K_hr, K_day, k_min,k_hr, k_day, N_cm_min, N_cm_hr, N_mm_day, Y_m, Y_mm, Y_km;
     boolean computed = false;
-    String item;
+
+    String item, unit, converted_unit;
     EditText num_k, num_K, num_N,num_Y;
     Button btn_compute, btn_clear, btn_print;
     TextView missing, answer, converted;
@@ -79,23 +80,27 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
 
         List<String> categories_k = new ArrayList<>();
         categories_k.add(0, "Choose");
-        categories_k.add("mm/sec");
-        categories_k.add("m/sec");
+        categories_k.add("m/min");
+        categories_k.add("m/hr");
+        categories_k.add("m/day");
 
         List<String> categories_K = new ArrayList<>();
         categories_K.add(0, "Choose");
-        categories_K.add("mm");
-        categories_K.add("m");
+        categories_K.add("m/min");
+        categories_K.add("m/hr");
+        categories_K.add("m/day");
 
         List<String> categories_N = new ArrayList<>();
         categories_N.add(0, "Choose");
-        categories_N.add("mm");
-        categories_N.add("m");
+        categories_N.add("cm^2/min");
+        categories_N.add("cm^2/hr");
+        categories_N.add("mm^2/day");
 
         List<String> categories_Y = new ArrayList<>();
         categories_Y.add(0, "Choose");
-        categories_Y.add("mm^2");
-        categories_Y.add("m^2");
+        categories_Y.add("kN/m^3");
+        categories_Y.add("kN/mm^3");
+        categories_Y.add("kN/km^3");
 
 
 
@@ -186,6 +191,7 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
                     k = (K * N) / Y;
                     missing.setText("The missing variable is k");
                     answer.setText("Which has a value of : \n" + k  + " cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -209,12 +215,18 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm/sec")){
-                                    mm_k= k * (3600/K);
-                                    converted.setText(mm_k + " cm/hr");
-                                } else if (item.equals("m/sec")){
-                                    m_k = k * 86400;
-                                    converted.setText(m_k + " cm/day");
+                                if(item.equals("m/min")){
+                                    k_min= k * 0.6;
+                                    converted.setText(k_min + " m/min");
+                                    converted_unit = "m/min";
+                                } else if (item.equals("m/hr")){
+                                    k_hr = k * 3600;
+                                    converted.setText(k_hr + " m/hr");
+                                    converted_unit = "m/hr";
+                                } else if (item.equals("m/day")){
+                                    k_day = k * 864;
+                                    converted.setText(k_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -238,7 +250,8 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
                     K = (k * Y) / N;
 
                     missing.setText("The missing variable is K");
-                    answer.setText("Which has a value of : " + K + " cm");
+                    answer.setText("Which has a value of : " + K + " cm/sec");
+                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -263,12 +276,18 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm/sec")){
-                                    mm_K = K * 10;
-                                    converted.setText(mm_K + " mm/sec");
-                                } else if (item.equals("m")){
-                                    m_K = K / 100;
-                                    converted.setText(mm_K + " m/sec");
+                                if(item.equals("m/min")){
+                                    K_min= K * 0.6;
+                                    converted.setText(K_min + " m/min");
+                                    converted_unit = "m/min";
+                                } else if (item.equals("m/hr")){
+                                    K_hr = K * 3600;
+                                    converted.setText(K_hr + " m/hr");
+                                    converted_unit = "m/hr";
+                                } else if (item.equals("m/day")){
+                                    K_day = K * 864;
+                                    converted.setText(K_day + " m/day");
+                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -292,7 +311,8 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
 
                     N = (k * Y) / K;
                     missing.setText("The missing variable is N");
-                    answer.setText("Which has a value of : " + N + "cm");
+                    answer.setText("Which has a value of : " + N + "m^2/sec");
+                    unit = "m^2/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -317,12 +337,18 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_N = N * 10;
-                                    converted.setText(mm_N + " mm");
-                                } else if (item.equals("m")){
-                                    m_N = N / 100;
-                                    converted.setText(m_N + " m");
+                                if(item.equals("cm^2/min")){
+                                    N_cm_min= N * 36000000;
+                                    converted.setText(k_min + " cm^2/min");
+                                    converted_unit = "cm^2/min";
+                                } else if (item.equals("cm^2/hr")){
+                                    N_cm_hr = N * 600000;
+                                    converted.setText(k_hr + " cm^2/hr");
+                                    converted_unit = "cm^2/hr";
+                                } else if (item.equals("mm^2/day")){
+                                    N_mm_day = N * (864000000 * 1000);
+                                    converted.setText(k_hr + " mm^2/day");
+                                    converted_unit = "mm^2/day";
                                 }
                             }
                         }
@@ -345,7 +371,8 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
 
                     Y = (k * N) / K;
                     missing.setText("The missing variable is Y");
-                    answer.setText("Which has a value of : " + Y + "cm^2");
+                    answer.setText("Which has a value of : " + Y + "kn/cm^3");
+                    unit = "kn/cm^3";
 
                     btn_print.setEnabled(computed);
 
@@ -370,14 +397,18 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm^2")){
-                                    mm_Y = Y * 10;
-                                    mm_Y = mm_Y * mm_Y;
-                                    converted.setText(mm_Y + " mm^2");
-                                } else if (item.equals("m")){
-                                    m_Y = Y / 100;
-                                    m_Y = m_Y * m_Y;
-                                    converted.setText(m_Y + " m^2");
+                                if(item.equals("kN/m^3")){
+                                    Y_m = Y * 1000000;
+                                    converted.setText(Y_m + " kN/m^3");
+                                    converted_unit = "kN/m^3";
+                                } else if (item.equals("kN/m^3")){
+                                    Y_mm = Y * 0.0001;
+                                    converted.setText(Y_mm + " kN/m^3");
+                                    converted_unit = "kN/m^3";
+                                } else if (item.equals("kN/km^3")){
+                                    Y_km = Y / (1000000 * 1000000);
+                                    converted.setText(Y_km + " kN/km^3");
+                                    converted_unit = "kN/km^3";
                                 }
                             }
                         }
@@ -476,13 +507,13 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
             addNewItem(document,missing.getText().toString(),Element.ALIGN_CENTER,titleMissing);
 
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
+            addNewItem(document,answer.getText().toString() + unit,Element.ALIGN_CENTER,titleAnswer);
 
             Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
+            addNewItem(document,converted.getText().toString() + converted_unit,Element.ALIGN_CENTER,titleConvert);
 
             document.close();
 

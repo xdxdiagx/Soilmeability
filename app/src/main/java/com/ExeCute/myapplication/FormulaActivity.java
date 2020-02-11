@@ -99,6 +99,10 @@ public class FormulaActivity extends AppCompatActivity {
                         //Toast.makeText(FormulaActivity.this, "Please set activity for this card item", Toast.LENGTH_SHORT).show();
                         Intent i = new Intent(FormulaActivity.this, TransmissivityActivity.class);
                         startActivity(i);
+                    } else if (finalI == 14){
+                        //Toast.makeText(FormulaActivity.this, "Please set activity for this card item", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(FormulaActivity.this, UnconfinedAquiferActivity.class);
+                        startActivity(i);
                     }
                     else {
                         Toast.makeText(FormulaActivity.this, "Please set activity for this card item", Toast.LENGTH_SHORT).show();
