@@ -96,15 +96,15 @@ public class EquivalentVerticalConductivityActivity extends AppCompatActivity {
 
         List<String> categories_K2 = new ArrayList<>();
         categories_K2.add(0, "Choose");
-        categories_K1.add("m/min");
-        categories_K1.add("m/hr");
-        categories_K1.add("m/day");
+        categories_K2.add("m/min");
+        categories_K2.add("m/hr");
+        categories_K2.add("m/day");
 
         List<String> categories_K3 = new ArrayList<>();
         categories_K3.add(0, "Choose");
-        categories_K1.add("m/min");
-        categories_K1.add("m/hr");
-        categories_K1.add("m/day");
+        categories_K3.add("m/min");
+        categories_K3.add("m/hr");
+        categories_K3.add("m/day");
 
         List<String> categories_H1 = new ArrayList<>();
         categories_H1.add(0, "Choose");
@@ -114,15 +114,15 @@ public class EquivalentVerticalConductivityActivity extends AppCompatActivity {
 
         List<String> categories_H2 = new ArrayList<>();
         categories_H2.add(0, "Choose");
-        categories_H1.add("m");
-        categories_H1.add("mm");
-        categories_H1.add("km");
+        categories_H2.add("m");
+        categories_H2.add("mm");
+        categories_H2.add("km");
 
         List<String> categories_H3 = new ArrayList<>();
         categories_H3.add(0, "Choose");
-        categories_H1.add("m");
-        categories_H1.add("mm");
-        categories_H1.add("km");
+        categories_H3.add("m");
+        categories_H3.add("mm");
+        categories_H3.add("km");
 
         //Style and populate the spinner
         final ArrayAdapter<String> dataAdapter_Kv;

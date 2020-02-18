@@ -50,7 +50,7 @@ public class TransmissivityActivity extends AppCompatActivity {
 
     double T , K, b;
     double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_K, m_K, mm_b, m_b;
+    double min_T, hr_T, day_T, mm_K, m_K, mm_b, m_b;
     double temp_feet;
     boolean computed = false;
     String item;
@@ -79,7 +79,10 @@ public class TransmissivityActivity extends AppCompatActivity {
         });
 
         List<String> categories_T = new ArrayList<>();
-        categories_T.add(0, "");
+        categories_T.add(0, "Choose");
+        categories_T.add("mm^2/min");
+        categories_T.add("mm^2/hr");
+        categories_T.add("mm^2/day");
 
         List<String> categories_K = new ArrayList<>();
         categories_K.add(0, "Choose");
@@ -163,14 +166,14 @@ public class TransmissivityActivity extends AppCompatActivity {
 
                     T = (K * b);
                     missing.setText("The missing variable is T");
-                    answer.setText("Which has a value of : \n" + T);
+                    answer.setText("Which has a value of : \n" + T + " m^2/sec");
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
                     // answer.setText(toString().valueOf(i));
 
                     //attaching data adapter to spinner
-                    convertTo.setText("B is unitless");
+                    convertTo.setText("Convert answer to ");
                     spinner.setAdapter(dataAdapter_T);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -178,7 +181,7 @@ public class TransmissivityActivity extends AppCompatActivity {
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                             if(parent.getItemAtPosition(position).equals("")){
                                 converted.setText(" ");
-                                item = "none";
+                                item = " ";
                                 // item = parent.getItemAtPosition(position).toString();
                                 //Toast.makeText(parent.getContext(), "cm/sec", Toast.LENGTH_SHORT).show();
                             } else {
@@ -187,7 +190,18 @@ public class TransmissivityActivity extends AppCompatActivity {
                                 //show selected spinner item
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
+
                                 //Do the calculation here
+                                if(item.equals("mm^2/min")){
+                                    min_T = T * 600000000;
+                                    converted.setText(min_T + " mm^2/min");
+                                } else if (item.equals("mm^2/hr")){
+                                    hr_T = T / (10000 * 360000);
+                                    converted.setText(hr_T + " mm^2/hr");
+                                } else if (item.equals("mm^2/day")){
+                                    day_T = T / 86400;
+                                    converted.setText(hr_T + " mm^2/day");
+                                }
                             }
                         }
 
@@ -391,6 +405,8 @@ public class TransmissivityActivity extends AppCompatActivity {
             Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
+            Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
 
             document.close();
 

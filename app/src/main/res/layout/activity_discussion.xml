@@ -16,28 +16,27 @@
         >
 
 
-    <RelativeLayout
-        android:layout_weight="2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="301dp"
+            android:layout_weight="2">
 
-        <Button
-            android:id="@+id/button_back_discussion"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_arrow_back_black_24dp"
-            />
+            <Button
+                android:id="@+id/button_back_discussion"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_arrow_back_black_24dp" />
 
-        <TextView
-            android:id="@+id/text_discussions"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginTop="30dp"
-            android:text="Discussions"
-            android:textColor="@android:color/white"
-            android:textSize="35sp" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/text_discussions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="30dp"
+                android:text="Discussions"
+                android:textColor="@android:color/white"
+                android:textSize="35sp" />
+        </RelativeLayout>
 
         <GridLayout
             android:id="@+id/gridlayout_discussion"
@@ -84,7 +83,7 @@
                         android:text="Equivalent Hydraulic Conductivity in Stratified Soil"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -124,7 +123,7 @@
                         android:text="Methods of Computing Coefficient of Permeability"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="15sp"
+                        android:textSize="12sp"
                         android:textStyle="bold" />
 
 
@@ -249,7 +248,7 @@
 FALLING-HEAD PERMEAMETER"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="13sp"
+                        android:textSize="10sp"
                         android:textStyle="bold" />
 
 
@@ -331,7 +330,7 @@ FALLING-HEAD PERMEAMETER"
                         android:text="Aquifers and Groundwater"
                         android:textAlignment="center"
                         android:textColor="@android:color/black"
-                        android:textSize="18sp"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
 

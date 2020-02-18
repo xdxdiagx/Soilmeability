@@ -163,6 +163,7 @@ public class DischargeVelocityActivity extends AppCompatActivity {
                     missing.setText("The missing variable is V");
                     answer.setText("Which has a value of : \n" + V  + " cm/sec");
 
+
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
                     // answer.setText(toString().valueOf(i));
@@ -189,9 +190,11 @@ public class DischargeVelocityActivity extends AppCompatActivity {
                                 if(item.equals("mm/sec")){
                                     mm_V = V * (3600/V);
                                     converted.setText(mm_V + " mm/sec");
-                                } else if (item.equals("cm/day")){
+
+                                } else if (item.equals("m/sec")){
                                     m_V = V * 86400;
                                     converted.setText(m_V + " m/sec");
+
                                 }
                             }
                         }
@@ -215,6 +218,7 @@ public class DischargeVelocityActivity extends AppCompatActivity {
 
                     missing.setText("The missing variable is K");
                     answer.setText("Which has a value of : " + K + " cm/sec");
+
 
                     btn_print.setEnabled(computed);
 
@@ -243,7 +247,7 @@ public class DischargeVelocityActivity extends AppCompatActivity {
                                 if(item.equals("mm/sec")){
                                     mm_K = K * 10;
                                     converted.setText(mm_K + " mm/sec");
-                                } else if (item.equals("m")){
+                                } else if (item.equals("m/sec")){
                                     m_K = K / 100;
                                     converted.setText(m_K + " m/sec");
                                 }

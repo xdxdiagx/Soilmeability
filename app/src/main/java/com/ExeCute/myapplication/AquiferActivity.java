@@ -51,7 +51,7 @@ public class AquiferActivity extends AppCompatActivity {
     double K, Q, logr1, r2, t, h1, h2;
     double K_m, K_hr, K_day,Q_m_day, Q_m_hr, Q_cm_hr, r1_cm, r1_mm, r1_c_m,r2_cm, r2_mm, r2_c_m, h1_cm, h1_mm, h1_c_m,h2_cm, h2_mm, h2_c_m, t_min, t_hr, t_day;
     boolean computed = false;
-    String item, unit, converted_unit;
+    String item;
     EditText num_K, num_Q, num_logr1,num_r2, num_t, num_h1, num_h2;
     Button btn_compute, btn_clear, btn_print;
     TextView missing, answer, converted;
@@ -97,27 +97,27 @@ public class AquiferActivity extends AppCompatActivity {
 
         List<String> categories_r2 = new ArrayList<>();
         categories_r2.add(0, "Choose");
-        categories_logr1.add("cm");
-        categories_logr1.add("mm");
-        categories_logr1.add("c/m");
+        categories_r2.add("cm");
+        categories_r2.add("mm");
+        categories_r2.add("c/m");
 
         List<String> categories_t = new ArrayList<>();
         categories_t.add(0, "Choose");
-        categories_logr1.add("min");
-        categories_logr1.add("hr");
-        categories_logr1.add("day");
+        categories_t.add("min");
+        categories_t.add("hr");
+        categories_t.add("day");
 
         List<String> categories_h1 = new ArrayList<>();
         categories_h1.add(0, "Choose");
-        categories_logr1.add("cm");
-        categories_logr1.add("mm");
-        categories_logr1.add("c/m");
+        categories_h1.add("cm");
+        categories_h1.add("mm");
+        categories_h1.add("c/m");
 
         List<String> categories_h2 = new ArrayList<>();
         categories_h2.add(0, "Choose");
-        categories_logr1.add("cm");
-        categories_logr1.add("mm");
-        categories_logr1.add("c/m");
+        categories_h2.add("cm");
+        categories_h2.add("mm");
+        categories_h2.add("c/m");
 
 
         //Style and populate the spinner
@@ -218,10 +218,9 @@ public class AquiferActivity extends AppCompatActivity {
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
 
-                    K = (Q) * Math.log10(logr1 / r2) / (3.14 * t) * (h1 - h2);
+                    K = Q * Math.log(logr1 / r2) / (2 *(3.14 * t) * (h1 - h2));
                     missing.setText("The missing variable is K");
                     answer.setText("Which has a value of : \n" + K  + " cm/sec");
-                    unit = "cm/sec";
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -248,15 +247,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("m/min")){
                                     K_m = K * 0.6;
                                     converted.setText(K_m + " m/min");
-                                    converted_unit = "m/min";
                                 } else if (item.equals("m/hr")){
                                     K_hr = K * 3600;
                                     converted.setText(K_hr + " m/hr");
-                                    converted_unit = "m/hr";
                                 } else if (item.equals("m/day")){
                                     K_day = K * 864;
                                     converted.setText(K_day + " m/day");
-                                    converted_unit = "m/day";
                                 }
                             }
                         }
@@ -281,11 +277,10 @@ public class AquiferActivity extends AppCompatActivity {
                     h1 = Double.parseDouble(num_h1.getText().toString());
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
-                    Q = (K) * (3.14 * t) * (h1 - h2) / Math.log10(logr1 / r2);
+                    Q = K * (2 * 3.14 * t) * ((h1 * h1) - (h2 * h2)) / Math.log(logr1 / r2);
 
                     missing.setText("The missing variable is Q");
                     answer.setText("Which has a value of : " + Q + " cm^3/sec");
-                    unit = "cm^3/sec";
 
                     btn_print.setEnabled(computed);
 
@@ -312,15 +307,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("m^3/hr")){
                                     Q_m_hr = Q * 11.574;
                                     converted.setText(Q_m_hr+ " mm");
-                                    converted_unit = "m^3/hr";
                                 } else if (item.equals("m^3/day")){
                                     Q_m_day = Q * 277.778;
                                     converted.setText(Q_m_day + " m^3/day");
-                                    converted_unit = "m^3/day";
                                 } else if (item.equals("cm^3/hr")){
                                     Q_cm_hr = Q * 36000;
                                     converted.setText(Q_cm_hr + " cm^3/hr");
-                                    converted_unit = "cm^3/hr";
                                 }
                             }
                         }
@@ -346,10 +338,10 @@ public class AquiferActivity extends AppCompatActivity {
                     h1 = Double.parseDouble(num_h1.getText().toString());
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
-                    logr1 = Math.pow(r2, (K) * (3.14 * t) * (h1 - h2) / Q);    //Little bit confuse of the formula
+                    logr1 = Math.pow(r2, (K) * (3.14 * t) * (h1 - h2) / Q);
                     missing.setText("The missing variable is logr1");
                     answer.setText("Which has a value of : " + logr1 + "m");
-                    unit = "m";
+
 
                     btn_print.setEnabled(computed);
 
@@ -377,15 +369,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("cm")){
                                     r1_cm = logr1 * 100;
                                     converted.setText(r1_cm + " cm");
-                                    converted_unit = "cm";
                                 } else if (item.equals("mm")){
                                     r1_mm = logr1 * 10000;
                                     converted.setText(r1_mm + " mm");
-                                    converted_unit = "mm";
                                 } else if (item.equals("c/m")){
                                     r1_c_m = logr1 * 10;
                                     converted.setText(r1_c_m + " c/m");
-                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -410,10 +399,9 @@ public class AquiferActivity extends AppCompatActivity {
                     h1 = Double.parseDouble(num_h1.getText().toString());
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
-                    r2 =  (logr1) / Math.pow(1, (K) * (3.14 * t) * (h1 - h2) / Q);     //Little bit confuse of the formula
+                    r2 =  (logr1) / Math.pow(1, (K * 2 * 3.14 * t) * ((h1 - h2) / Q));
                     missing.setText("The missing variable is r2");
                     answer.setText("Which has a value of : " + r2 + " m");
-                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -441,15 +429,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("cm")){
                                     r2_cm = r2 * 100;
                                     converted.setText(r2_cm + " cm");
-                                    converted_unit = "cm";
                                 } else if (item.equals("mm")){
                                     r2_mm = r2 * 10000;
                                     converted.setText(r2_mm + " mm");
-                                    converted_unit = "mm";
                                 } else if (item.equals("c/m")){
                                     r2_c_m = r2 * 10;
                                     converted.setText(r2_c_m + " c/m");
-                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -474,7 +459,8 @@ public class AquiferActivity extends AppCompatActivity {
                     h1 = Double.parseDouble(num_h1.getText().toString());
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
-                    t = (Q) * Math.log10(logr1 / r2) / (3.14 * K) * (h1 - h2);
+                    t = (Q * Math.log(logr1 / r2)) / ((2 * 3.14 * K) * (h1 - h2));
+
                     missing.setText("The missing variable is t");
                     answer.setText("Which has a value of : " + t + "cm");
 
@@ -504,15 +490,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("min")){
                                     t_min = t * 0.000278;
                                     converted.setText(t_min + " min");
-                                    converted_unit = "min";
                                 } else if (item.equals("hr")){
                                     t_hr = t * 0.0167;
                                     converted.setText(t_hr + " hr");
-                                    converted_unit = "hr";
                                 } else if (item.equals("day")){
                                     t_day = t * 86400;
                                     converted.setText(t_day + " day");
-                                    converted_unit = "day";
                                 }
                             }
                         }
@@ -537,10 +520,10 @@ public class AquiferActivity extends AppCompatActivity {
                     t = Double.parseDouble(num_t.getText().toString());
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
-                    h1 = (h2) + (Q * Math.log10(logr1 / r2) / (K) * (2 * 3.14 * t));
+                    h1 = h2 + ((Q * Math.log(logr1 / r2) / (K * (2 * 3.14 * t))));
+
                     missing.setText("The missing variable is h1");
                     answer.setText("Which has a value of : " + h1 + " m");
-                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -568,15 +551,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("cm")){
                                     h1_cm = h1 * 100;
                                     converted.setText(h1_cm + " cm");
-                                    converted_unit = "cm";
                                 } else if (item.equals("mm")){
                                     h1_mm = h1 * 10000;
                                     converted.setText(h1_mm + " mm");
-                                    converted_unit = "mm";
                                 } else if (item.equals("c/m")){
                                     h1_c_m = h1 * 10;
                                     converted.setText(h1_c_m + " c/m");
-                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -601,10 +581,9 @@ public class AquiferActivity extends AppCompatActivity {
                     t = Double.parseDouble(num_t.getText().toString());
                     h1 = Double.parseDouble(num_h1.getText().toString());
 
-                    h2 = (K / Q * logr1) * Math.log10(h1) / (r2 * t);
+                    h2 = ((Q * Math.log(logr1 / r2)) / (K * 2 * 3.14 * t)) - h1;
                     missing.setText("The missing variable is h2");
                     answer.setText("Which has a value of : " + h2 + " m");
-                    unit = "m";
 
                     btn_print.setEnabled(computed);
 
@@ -632,15 +611,12 @@ public class AquiferActivity extends AppCompatActivity {
                                 if(item.equals("cm")){
                                     h2_cm = h2 * 100;
                                     converted.setText(h2_cm + " cm");
-                                    converted_unit = "cm";
                                 } else if (item.equals("mm")){
                                     h2_mm = h2 * 10000;
                                     converted.setText(h2_mm + " mm");
-                                    converted_unit = "mm";
                                 } else if (item.equals("c/m")){
                                     h2_c_m = h2 * 10;
                                     converted.setText(h2_c_m + " c/m");
-                                    converted_unit= "c/m";
                                 }
                             }
                         }
@@ -707,44 +683,44 @@ public class AquiferActivity extends AppCompatActivity {
             Font title = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Aquifer", Element.ALIGN_CENTER,title);
 
-            Font title_K = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_K = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for K", Element.ALIGN_CENTER,title_K);
 
             //Add more
             Font value_K = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_K.getText().toString(),Element.ALIGN_CENTER,value_K);
 
-            Font title_Q = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_Q = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for Q", Element.ALIGN_CENTER,title_Q);
 
             Font value_Q = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_Q.getText().toString(),Element.ALIGN_CENTER,value_Q);
 
-            Font title_logr1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_logr1 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for logr1", Element.ALIGN_CENTER,title_logr1);
 
             Font value_logr1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_logr1.getText().toString(),Element.ALIGN_CENTER,value_logr1);
 
-            Font title_r2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_r2 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for r2", Element.ALIGN_CENTER,title_r2);
 
             Font value_r2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_r2.getText().toString(),Element.ALIGN_CENTER,value_r2);
 
-            Font title_t = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_t = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for t", Element.ALIGN_CENTER,title_t);
 
             Font value_t = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_t.getText().toString(),Element.ALIGN_CENTER,value_t);
 
-            Font title_h1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_h1 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for h1", Element.ALIGN_CENTER,title_h1);
 
             Font value_h1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_h1.getText().toString(),Element.ALIGN_CENTER,value_h1);
 
-            Font title_h2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_h2 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for h2", Element.ALIGN_CENTER,title_h2);
 
             Font value_h2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
@@ -755,13 +731,13 @@ public class AquiferActivity extends AppCompatActivity {
             addNewItem(document,missing.getText().toString(),Element.ALIGN_CENTER,titleMissing);
 
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,answer.getText().toString() + unit,Element.ALIGN_CENTER,titleAnswer);
+            addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
 
-            Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
+            Font titleConverted = new Font(fontName,30.0f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
-            addNewItem(document,converted.getText().toString() + converted_unit,Element.ALIGN_CENTER,titleConvert);
+            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
 
             document.close();
 

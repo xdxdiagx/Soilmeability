@@ -391,6 +391,9 @@ public class LeakageFactorActivity extends AppCompatActivity {
             Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
+            Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
+
 
             document.close();
 

@@ -49,8 +49,7 @@ import java.util.List;
 public class ConstantHeadActivity extends AppCompatActivity {
 
     double K , Q, L, A, h, t;
-    double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_K, m_K, mm_Q, m_Q, mm_L, m_L, mm_A, m_A, mm_h, m_h, mm_t, m_t ;
+    double K_mm_sec,K_m_min,K_cm_hr,K_m_day, Q_m3, Q_mm3,Q_km3, L_m, L_mm, L_km, A_m2, A_mm2, A_km2, h_m, h_mm, h_km, t_min, t_hr, t_day;
     boolean computed = false;
     String item;
     EditText num_K, num_Q, num_L,num_A, num_h, num_t;
@@ -58,6 +57,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
     TextView missing, answer, converted;
 
     private Spinner spinner;
+
     private Button btn_back;
 
     @Override
@@ -80,30 +80,37 @@ public class ConstantHeadActivity extends AppCompatActivity {
         List<String> categories_K = new ArrayList<>();
         categories_K.add(0, "Choose");
         categories_K.add("mm/sec");
-        categories_K.add("m/sec");
+        categories_K.add("m/min");
+        categories_K.add("cm/hr");
+        categories_K.add("m/day");
 
         List<String> categories_Q = new ArrayList<>();
         categories_Q.add(0, "Choose");
-        categories_Q.add("mm");
-        categories_Q.add("m");
+        categories_Q.add("m^3");
+        categories_Q.add("mm^3");
+        categories_Q.add("km^3");
 
         List<String> categories_L = new ArrayList<>();
         categories_L.add(0, "Choose");
-        categories_L.add("mm");
         categories_L.add("m");
+        categories_L.add("mm");
+        categories_L.add("km");
 
         List<String> categories_A = new ArrayList<>();
         categories_A.add(0, "Choose");
-        categories_A.add("mm^2");
         categories_A.add("m^2");
+        categories_A.add("mm^2");
+        categories_A.add("km^2");
 
         List<String> categories_h = new ArrayList<>();
         categories_h.add(0, "Choose");
-        categories_h.add("mm");
         categories_h.add("m");
+        categories_h.add("mm");
+        categories_h.add("km");
 
         List<String> categories_t = new ArrayList<>();
         categories_t.add(0, "Choose");
+        categories_t.add("min");
         categories_t.add("hr");
         categories_t.add("day");
 
@@ -233,11 +240,17 @@ public class ConstantHeadActivity extends AppCompatActivity {
 
                                 //Do the calculation here
                                 if(item.equals("mm/sec")){
-                                    mm_K= K * (3600/K);
-                                    converted.setText(mm_K + " cm/hr");
-                                } else if (item.equals("m/sec")){
-                                    m_K = K * 86400;
-                                    converted.setText(m_K + " cm/day");
+                                    K_mm_sec = K * 10;
+                                    converted.setText(K_mm_sec + " mm/sec");
+                                } else if (item.equals("m/min")){
+                                    K_m_min = K / 1.667;
+                                    converted.setText(K_m_min + " m/min");
+                                } else if (item.equals("cm/hr")){
+                                    K_cm_hr = K * 3600;
+                                    converted.setText(K_cm_hr + " cm/hr");
+                                } else if (item.equals("m/day")){
+                                    K_m_day = K * 864;
+                                    converted.setText(K_m_day + " m/day");
                                 }
                             }
                         }
@@ -264,7 +277,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     Q = (K * A * h * t) / L;
 
                     missing.setText("The missing variable is Q");
-                    answer.setText("Which has a value of : " + Q + " cm");
+                    answer.setText("Which has a value of : " + Q + " cm^3");
 
                     btn_print.setEnabled(computed);
 
@@ -289,12 +302,15 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm/sec")){
-                                    mm_K = K * 10;
-                                    converted.setText(mm_K + " mm/sec");
-                                } else if (item.equals("m")){
-                                    m_K = K / 100;
-                                    converted.setText(mm_K + " m/sec");
+                                if(item.equals("m^3")){
+                                    Q_m3 = Q / 1000000;
+                                    converted.setText(Q_m3 + " m^3");
+                                } else if (item.equals("mm^3")){
+                                    Q_mm3 = Q * 1000;
+                                    converted.setText(Q_mm3 + " mm^3");
+                                } else if (item.equals("km^3")){
+                                    Q_km3 = Q / (1000000000 * 1000000);
+                                    converted.setText(Q_km3 + " km^3");
                                 }
                             }
                         }
@@ -313,7 +329,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
                     A = Double.parseDouble(num_A.getText().toString());
                     t = Double.parseDouble(num_t.getText().toString());
                     h = Double.parseDouble(num_h.getText().toString());
@@ -321,7 +337,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
 
                     L = (K * A * h * t) / Q;
                     missing.setText("The missing variable is L");
-                    answer.setText("Which has a value of : " + L + "cm");
+                    answer.setText("Which has a value of : " + L + " cm");
 
                     btn_print.setEnabled(computed);
 
@@ -346,12 +362,15 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_L = L * 10;
-                                    converted.setText(mm_L + " mm");
-                                } else if (item.equals("m")){
-                                    m_L = L / 100;
-                                    converted.setText(m_L + " m");
+                                if(item.equals("m")){
+                                    L_m = L / 100;
+                                    converted.setText(L_m + " m");
+                                } else if (item.equals("mm")){
+                                    L_mm = L * 10;
+                                    converted.setText(L_mm + " m");
+                                } else if (item.equals("km")){
+                                    L_km = L / 100000;
+                                    converted.setText(L_km + " m");
                                 }
                             }
                         }
@@ -376,7 +395,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
 
 
                     A = (Q * L) / (K * h * t);
-                    A = A * A;
+                    //A = A * A;
                     missing.setText("The missing variable is A");
                     answer.setText("Which has a value of : " + A + "cm^2");
 
@@ -403,14 +422,15 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm^2")){
-                                    mm_A = A * 10;
-                                    mm_A = mm_A * mm_A;
-                                    converted.setText(mm_A + " mm^2");
-                                } else if (item.equals("m")){
-                                    m_A = A / 100;
-                                    m_A = m_A * m_A;
-                                    converted.setText(m_A + " m^2");
+                                if(item.equals("m^2")){
+                                    A_m2= A / 10000;
+                                    converted.setText(A_m2 + " mm^2");
+                                } else if (item.equals("mm^2")){
+                                    A_mm2 = A * 100;
+                                    converted.setText(A_mm2 + " mm^2");
+                                } else if (item.equals("km^2")){
+                                    A_km2 = A / (1000000 * 10000);
+                                    converted.setText(A_km2 + " km^2");
                                 }
                             }
                         }
@@ -428,14 +448,14 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
                     L = Double.parseDouble(num_L.getText().toString());
                     A = Double.parseDouble(num_A.getText().toString());
                     t = Double.parseDouble(num_t.getText().toString());
 
                     h = (Q * L) / (K * A * t);
                     missing.setText("The missing variable is h");
-                    answer.setText("Which has a value of : " + h + "cm");
+                    answer.setText("Which has a value of : " + h + " cm");
 
                     btn_print.setEnabled(computed);
 
@@ -460,12 +480,15 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_h = h * 10;
-                                    converted.setText(mm_h + " mm");
-                                } else if (item.equals("m")){
-                                    m_h = h / 100;
-                                    converted.setText(m_h + " m");
+                                if(item.equals("m")){
+                                    h_m = h / 100;
+                                    converted.setText(h_m + " m");
+                                } else if (item.equals("mm")){
+                                    h_mm = h * 10;
+                                    converted.setText(h_mm + " m");
+                                } else if (item.equals("km")){
+                                    h_km = h / 100000;
+                                    converted.setText(h_km + " m");
                                 }
                             }
                         }
@@ -483,14 +506,14 @@ public class ConstantHeadActivity extends AppCompatActivity {
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    Q = Double.parseDouble(num_L.getText().toString());
+                    Q = Double.parseDouble(num_Q.getText().toString());
                     L = Double.parseDouble(num_L.getText().toString());
                     A = Double.parseDouble(num_A.getText().toString());
                     h = Double.parseDouble(num_h.getText().toString());
 
                     t = (Q * L) / (K * A * h);
                     missing.setText("The missing variable is t");
-                    answer.setText("Which has a value of : " + t + "sec");
+                    answer.setText("Which has a value of : " + t + " sec");
 
                     btn_print.setEnabled(computed);
 
@@ -515,12 +538,15 @@ public class ConstantHeadActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("hr")){
-                                    mm_t = t * 10;
-                                    converted.setText(mm_t + " hr");
+                                if(item.equals("min")){
+                                    t_min = t / 60;
+                                    converted.setText(t_min + " min");
+                                } else if (item.equals("hr")){
+                                    t_hr = t / 3600;
+                                    converted.setText(t_hr + " hr");
                                 } else if (item.equals("day")){
-                                    m_t = t / 100;
-                                    converted.setText(m_t + " day");
+                                    t_day = t / 86400;
+                                    converted.setText(t_day + " day");
                                 }
                             }
                         }
@@ -588,38 +614,38 @@ public class ConstantHeadActivity extends AppCompatActivity {
             Font title = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Constant Head Test", Element.ALIGN_CENTER,title);
 
-            Font title_K = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_K = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for K", Element.ALIGN_CENTER,title_K);
 
             //Add more
             Font value_K = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_K.getText().toString(),Element.ALIGN_CENTER,value_K);
 
-            Font title_Q = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_Q = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for Q", Element.ALIGN_CENTER,title_Q);
 
             Font value_Q = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_Q.getText().toString(),Element.ALIGN_CENTER,value_Q);
 
-            Font title_L = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_L = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for L", Element.ALIGN_CENTER,title_L);
 
             Font value_L = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_L.getText().toString(),Element.ALIGN_CENTER,value_L);
 
-            Font title_A = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_A = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for A", Element.ALIGN_CENTER,title_A);
 
             Font value_A = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_A.getText().toString(),Element.ALIGN_CENTER,value_A);
 
-            Font title_h = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_h = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for h", Element.ALIGN_CENTER,title_h);
 
             Font value_h = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_h.getText().toString(),Element.ALIGN_CENTER,value_h);
 
-            Font title_t = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_t = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for t", Element.ALIGN_CENTER,title_t);
 
             Font value_t = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
@@ -634,7 +660,7 @@ public class ConstantHeadActivity extends AppCompatActivity {
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
 
-            Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
+            Font titleConverted = new Font(fontName,30.0f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);

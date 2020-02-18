@@ -190,7 +190,7 @@ public class SeePageVelocityActivity extends AppCompatActivity {
                                     mm_Vs = Vs * (3600/Vs);
                                     converted.setText(mm_Vs + " mm^3");
                                 } else if (item.equals("m^3")){
-                                    mm_Vs = Vs * 86400;
+                                    m_Vs = Vs * 86400;
                                     converted.setText(m_Vs + " m^3");
                                 }
                             }

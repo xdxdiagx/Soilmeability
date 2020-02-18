@@ -79,8 +79,8 @@ public class FlowRateActivity extends AppCompatActivity {
 
         List<String> categories_Q = new ArrayList<>();
         categories_Q.add(0, "Choose");
-        categories_Q.add("mm^3/sec");
-        categories_Q.add("m^3/sec");
+        categories_Q.add("cm^3/hr");
+        categories_Q.add("cm^3/day");
 
         List<String> categories_K = new ArrayList<>();
         categories_K.add(0, "Choose");
@@ -199,13 +199,14 @@ public class FlowRateActivity extends AppCompatActivity {
                                 //show selected spinner item
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
+
                                 //Do the calculation here
-                                if(item.equals("mm^3/sec")){
+                                if(item.equals("cm^3/hr")){
                                     mm_Q = q * (3600/q);
-                                    converted.setText(mm_Q + " cm/hr");
-                                } else if (item.equals("m^3/sec")){
+                                    converted.setText(mm_Q + " cm^3/hr");
+                                } else if (item.equals("cm^3/day")){
                                     m_Q = q * 86400;
-                                    converted.setText(m_Q + " cm/day");
+                                    converted.setText(m_Q + " cm^3/day");
                                 }
                             }
                         }
@@ -229,7 +230,7 @@ public class FlowRateActivity extends AppCompatActivity {
                     K = q / (i * A);
 
                     missing.setText("The missing variable is K");
-                    answer.setText("Which has a value of : " + K + " cm");
+                    answer.setText("Which has a value of : " + K + " cm/sec");
 
                     btn_print.setEnabled(computed);
 
@@ -255,12 +256,13 @@ public class FlowRateActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
+                                if(item.equals("mm/sec")){
                                     mm_K = K * 10;
-                                    converted.setText(mm_K + " mm");
-                                } else if (item.equals("m")){
+                                    converted.setText(mm_K + " mm/sec");
+                                } else if (item.equals("m/sec")){
                                     m_K = K / 100;
-                                    converted.setText(m_K + " m");
+                                    converted.setText(m_K + " m/sec");
+
                                 }
                             }
                         }

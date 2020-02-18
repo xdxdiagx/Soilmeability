@@ -49,8 +49,7 @@ import java.util.List;
 public class EquivalentVerticalActivity extends AppCompatActivity {
 
     double Kv, T, A, B, C, H1, H2, H3;
-    double cm_hr, cm_day, m_sec, m_hr, m_day;
-    double mm_T, m_T, mm_A, m_A, mm_B, m_B, mm_C, m_C, mm_H1, m_H1, mm_H2, m_H2, mm_H3, m_H3;
+    double Kv_min,Kv_hr, Kv_day,A_min, A_hr, A_day, B_min, B_hr, B_day, C_min, C_hr, C_day, T_m, T_mm, T_km, H1_m, H1_mm, H1_km,  H2_m, H2_mm, H2_km,  H3_m, H3_mm, H3_km;
     boolean computed = false;
     String item;
     EditText num_Kv, num_T, num_A,num_B, num_C, num_H1, num_H2, num_H3;
@@ -79,46 +78,51 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
 
         List<String> categories_Kv = new ArrayList<>();
         categories_Kv.add(0, "Choose");
-        categories_Kv.add("cm/hr");
-        categories_Kv.add("cm/day");
-        categories_Kv.add("m/sec");
+        categories_Kv.add("m/min");
         categories_Kv.add("m/hr");
         categories_Kv.add("m/day");
 
         List<String> categories_T = new ArrayList<>();
         categories_T.add(0, "Choose");
-        categories_T.add("mm");
         categories_T.add("m");
+        categories_T.add("mm");
+        categories_T.add("km");
 
         List<String> categories_A = new ArrayList<>();
         categories_A.add(0, "Choose");
-        categories_A.add("mm");
-        categories_A.add("m");
+        categories_A.add("m/min");
+        categories_A.add("m/hr");
+        categories_A.add("m/day");
 
         List<String> categories_B = new ArrayList<>();
         categories_B.add(0, "Choose");
-        categories_B.add("mm");
-        categories_B.add("m");
+        categories_B.add("m/min");
+        categories_B.add("m/hr");
+        categories_B.add("m/day");
 
         List<String> categories_C = new ArrayList<>();
         categories_C.add(0, "Choose");
-        categories_C.add("mm");
-        categories_C.add("m");
+        categories_C.add("m/min");
+        categories_C.add("m/hr");
+        categories_C.add("m/day");
 
         List<String> categories_H1 = new ArrayList<>();
         categories_H1.add(0, "Choose");
-        categories_H1.add("mm");
         categories_H1.add("m");
+        categories_H1.add("mm");
+        categories_H1.add("km");
 
         List<String> categories_H2 = new ArrayList<>();
         categories_H2.add(0, "Choose");
-        categories_H2.add("mm");
         categories_H2.add("m");
+        categories_H2.add("mm");
+        categories_H2.add("km");
 
         List<String> categories_H3 = new ArrayList<>();
         categories_H3.add(0, "Choose");
-        categories_H3.add("mm");
         categories_H3.add("m");
+        categories_H3.add("mm");
+        categories_H3.add("km");
 
         //Style and populate the spinner
         final ArrayAdapter<String> dataAdapter_Kv;
@@ -249,22 +253,17 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("cm/hr")){
-                                    cm_hr = Kv * (3600/Kv);
-                                    converted.setText(cm_hr + " cm/hr");
-                                } else if (item.equals("cm/day")){
-                                    cm_day = Kv * 86400;
-                                    converted.setText(cm_day + " cm/day");
-                                } else if (item.equals("m/sec")){
-                                    m_sec = Kv * (0.01/Kv);
-                                    converted.setText(m_sec + " m/sec");
-                                } else if (item.equals("m/hr")){
-                                    m_hr = Kv * (36/Kv);
-                                    converted.setText(m_hr + " m/hr");
-                                } else if (item.equals("m/day")){
-                                    m_day = Kv * 864;
-                                    converted.setText(m_day + " m/day");
+                                if (item.equals("m/min")) {
+                                    Kv_min = Kv * 0.6;
+                                    converted.setText(Kv_min + " m/min");
+                                } else if (item.equals("m/hr")) {
+                                    Kv_hr = Kv * 3600;
+                                    converted.setText(Kv_hr + " m/hr");
+                                } else if (item.equals("m/day")) {
+                                    Kv_day = Kv * 864;
+                                    converted.setText(Kv_day + " m/day");
                                 }
+
                             }
                         }
 
@@ -290,7 +289,6 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H3 = Double.parseDouble(num_H3.getText().toString());
 
                     T = Kv * ((H1 / A) + (H2 / B) + (H3 / C));
-                    T = Math.round(T);
 
                     missing.setText("The missing variable is T");
                     answer.setText("Which has a value of : " + T + " cm");
@@ -317,12 +315,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_T = T * 10;
-                                    converted.setText(mm_T + " mm");
-                                } else if (item.equals("m")){
-                                    m_T = T / 100;
-                                    converted.setText(m_T + " m");
+                                if(item.equals("m")){
+                                    T_m = T * 100;
+                                    converted.setText(T_m + " m");
+                                } else if (item.equals("mm")){
+                                    T_mm = T * 10;
+                                    converted.setText(T_mm + " mm");
+                                } else if (item.equals("km")){
+                                    T_km = T * 100000;
+                                    converted.setText(T_km + " km");
                                 }
                             }
                         }
@@ -350,9 +351,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H3 = Double.parseDouble(num_H3.getText().toString());
 
                     A = H1 / ((Kv / T) - (H2 / B) + (H3 / C));
-                    A = Math.round (A);
                     missing.setText("The missing variable is A");
-                    answer.setText("Which has a value of : " + A + "cm");
+                    answer.setText("Which has a value of : " + A + " cm/sec");
 
                     btn_print.setEnabled(computed);
 
@@ -377,12 +377,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_A = A * 10;
-                                    converted.setText(mm_A + " mm");
-                                } else if (item.equals("m")){
-                                    m_A = A / 100;
-                                    converted.setText(m_A + " m");
+                                if(item.equals("m/min")){
+                                    A_min = A * 0.6;
+                                    converted.setText(A_min + " m/min");
+                                } else if (item.equals("m/hr")){
+                                    A_hr = A * 3600;
+                                    converted.setText(A_hr + " m/hr");
+                                } else if (item.equals("m/day")){
+                                    A_day = A * 864;
+                                    converted.setText(A_day + " m/day");
                                 }
                             }
                         }
@@ -409,9 +412,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H3 = Double.parseDouble(num_H3.getText().toString());
 
                     B = H2 / ((Kv / T) - (H1 / A) + (H3 / C));
-                    B = Math.round (B);
                     missing.setText("The missing variable is B");
-                    answer.setText("Which has a value of : " + B + "cm");
+                    answer.setText("Which has a value of : " + B + " cm/sec");
 
                     btn_print.setEnabled(computed);
 
@@ -436,12 +438,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_B = B * 10;
-                                    converted.setText(mm_B + " mm");
-                                } else if (item.equals("m")){
-                                    m_B = B / 100;
-                                    converted.setText(m_B + " m");
+                                if(item.equals("m/min")){
+                                    B_min = B * 0.6;
+                                    converted.setText(B_min + " m/min");
+                                } else if (item.equals("m/hr")){
+                                    B_hr = B * 3600;
+                                    converted.setText(B_hr + " m/hr");
+                                } else if (item.equals("m/day")){
+                                    B_day = B * 864;
+                                    converted.setText(B_day + " m/day");
                                 }
                             }
                         }
@@ -468,9 +473,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H3 = Double.parseDouble(num_H3.getText().toString());
 
                     C = H3 / ((Kv / T) - (H1 / A) + (H2 / B));
-                    C = Math.round (C);
                     missing.setText("The missing variable is C");
-                    answer.setText("Which has a value of : " + C + "cm");
+                    answer.setText("Which has a value of : " + C + " cm/sec");
 
                     btn_print.setEnabled(computed);
 
@@ -495,12 +499,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_C = C * 10;
-                                    converted.setText(mm_C + " mm");
-                                } else if (item.equals("m")){
-                                    m_C = C / 100;
-                                    converted.setText(m_C + " m");
+                                if(item.equals("m/min")){
+                                    C_min = C * 0.6;
+                                    converted.setText(C_min + " m/min");
+                                } else if (item.equals("m/hr")){
+                                    C_hr = C * 3600;
+                                    converted.setText(C_hr + " m/hr");
+                                } else if (item.equals("m/day")){
+                                    C_day = C * 864;
+                                    converted.setText(C_day + " m/day");
                                 }
                             }
                         }
@@ -527,9 +534,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H3 = Double.parseDouble(num_H3.getText().toString());
 
                     H1 = (Kv / T) - ((H3 / C) + (H2 / B) * A);
-                    H1 = Math.pow(10, H1);
                     missing.setText("The missing variable is H1");
-                    answer.setText("Which has a value of : " + H1 + "cm");
+                    answer.setText("Which has a value of : " + H1 + " cm");
 
                     btn_print.setEnabled(computed);
 
@@ -554,12 +560,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H1 = H1 * 10;
-                                    converted.setText(mm_H1 + " mm");
-                                } else if (item.equals("m")){
-                                    m_H1 = H1 / 100;
-                                    converted.setText(m_H1 + " m");
+                                if(item.equals("m")){
+                                    H1_m = H1 * 100;
+                                    converted.setText(H1_m + " mm");
+                                } else if (item.equals("mm")){
+                                    H1_mm = H1 * 10;
+                                    converted.setText(H1_mm + " m");
+                                } else if (item.equals("km")){
+                                    H1_km = H1 * 100000;
+                                    converted.setText(H1_km + " m");
                                 }
                             }
                         }
@@ -586,9 +595,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H3 = Double.parseDouble(num_H3.getText().toString());
 
                     H2 = (Kv / T) - ((H1 / A) + (H3 / C) * B);
-                    H2 = Math.pow(10, H2);
                     missing.setText("The missing variable is H2");
-                    answer.setText("Which has a value of : " + H2 + "cm");
+                    answer.setText("Which has a value of : " + H2 + " cm");
 
                     btn_print.setEnabled(computed);
 
@@ -613,12 +621,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H2 = H2 * 10;
-                                    converted.setText(mm_H2 + " mm");
-                                } else if (item.equals("m")){
-                                    m_H2 = H2 / 100;
-                                    converted.setText(m_H2 + " m");
+                                if(item.equals("m")){
+                                    H2_m = H2 * 100;
+                                    converted.setText(H2_m + " mm");
+                                } else if (item.equals("mm")){
+                                    H2_mm = H2 * 10;
+                                    converted.setText(H2_mm + " m");
+                                } else if (item.equals("km")){
+                                    H2_km = H2 * 100000;
+                                    converted.setText(H2_km + " m");
                                 }
                             }
                         }
@@ -645,9 +656,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                     H2 = Double.parseDouble(num_H2.getText().toString());
 
                     H3 = (Kv / T) - ((H1 / A) + (H2 / B) * C);
-                    H3 = Math.pow( 10, H3);
                     missing.setText("The missing variable is H3");
-                    answer.setText("Which has a value of : " + H3 + "cm");
+                    answer.setText("Which has a value of : " + H3 + " cm");
 
                     btn_print.setEnabled(computed);
 
@@ -672,12 +682,15 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
                                 //Toast.makeText(parent.getContext(), "Selected " + item, Toast.LENGTH_SHORT).show();
 
                                 //Do the calculation here
-                                if(item.equals("mm")){
-                                    mm_H3 = H3 * 10;
-                                    converted.setText(mm_H3 + " mm");
-                                } else if (item.equals("m")){
-                                    m_H3 = H3 / 100;
-                                    converted.setText(m_H3 + " m");
+                                if(item.equals("m")){
+                                    H3_m = H3 * 100;
+                                    converted.setText(H3_m + " mm");
+                                } else if (item.equals("mm")){
+                                    H3_mm = H3 * 10;
+                                    converted.setText(H3_mm + " m");
+                                } else if (item.equals("km")){
+                                    H3_km = H3 * 100000;
+                                    converted.setText(H3_km + " m");
                                 }
                             }
                         }
@@ -745,50 +758,50 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
             Font title = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Equivalent Vertical", Element.ALIGN_CENTER,title);
 
-            Font title_Kv = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_Kv = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for Kv", Element.ALIGN_CENTER,title_Kv);
 
             //Add more
             Font value_Kv = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_Kv.getText().toString(),Element.ALIGN_CENTER,value_Kv);
 
-            Font title_T = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_T = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for T", Element.ALIGN_CENTER,title_T);
 
             Font value_T = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_T.getText().toString(),Element.ALIGN_CENTER,value_T);
 
-            Font title_A = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_A = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for A", Element.ALIGN_CENTER,title_A);
 
             Font value_A = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_A.getText().toString(),Element.ALIGN_CENTER,value_A);
 
-            Font title_B = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_B = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for B", Element.ALIGN_CENTER,title_B);
 
             Font value_B = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_B.getText().toString(),Element.ALIGN_CENTER,value_B);
 
-            Font title_C = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_C = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for C", Element.ALIGN_CENTER,title_C);
 
             Font value_C = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_C.getText().toString(),Element.ALIGN_CENTER,value_C);
 
-            Font title_H1 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H1 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H1", Element.ALIGN_CENTER,title_H1);
 
             Font value_H1 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_H1.getText().toString(),Element.ALIGN_CENTER,value_H1);
 
-            Font title_H2 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H2 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H2", Element.ALIGN_CENTER,title_H2);
 
             Font value_H2 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,num_H2.getText().toString(),Element.ALIGN_CENTER,value_H2);
 
-            Font title_H3 = new Font(fontName,36.6f,Font.NORMAL,BaseColor.BLACK);
+            Font title_H3 = new Font(fontName,30.0f,Font.NORMAL,BaseColor.BLACK);
             addNewItem(document,"Value for H3", Element.ALIGN_CENTER,title_H3);
 
             Font value_H3 = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
@@ -800,7 +813,7 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
             Font titleAnswer = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
             addNewItem(document,answer.getText().toString(),Element.ALIGN_CENTER,titleAnswer);
 
-            Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
+            Font titleConverted = new Font(fontName,30.0f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
 
             Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);

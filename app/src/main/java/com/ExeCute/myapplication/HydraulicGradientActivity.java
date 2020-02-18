@@ -53,7 +53,7 @@ public class HydraulicGradientActivity extends AppCompatActivity {
     double mm_h, m_h, mm_L, m_L;
     double temp_feet;
     boolean computed = false;
-    String item;
+    String item, unit, converted_unit;
     EditText num_i, num_h, num_L;
     Button btn_compute, btn_clear, btn_print;
     TextView missing, answer,convertTo, converted;
@@ -164,6 +164,7 @@ public class HydraulicGradientActivity extends AppCompatActivity {
                     i = h / L;
                     missing.setText("The missing variable is i");
                     answer.setText("Which has a value of : \n" + i);
+                    unit = "";
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -171,6 +172,8 @@ public class HydraulicGradientActivity extends AppCompatActivity {
 
                     //attaching data adapter to spinner
                     convertTo.setText("i is unitless");
+                    converted_unit = "";
+                    converted_unit = "";
                     spinner.setAdapter(dataAdapter_i);
 
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -210,6 +213,7 @@ public class HydraulicGradientActivity extends AppCompatActivity {
 
                     missing.setText("The missing variable is h");
                     answer.setText("Which has a value of : " + h + " cm");
+                    //unit = "cm";
 
                     btn_print.setEnabled(computed);
 
@@ -238,9 +242,11 @@ public class HydraulicGradientActivity extends AppCompatActivity {
                                 if(item.equals("mm")){
                                     mm_h = h * 10;
                                     converted.setText(mm_h + " mm");
+                                   // converted_unit = "mm";
                                 } else if (item.equals("m")){
                                     m_h = h / 100;
                                     converted.setText(m_h + " m");
+                                    //converted_unit = "m";
                                 }
                             }
                         }
@@ -264,7 +270,8 @@ public class HydraulicGradientActivity extends AppCompatActivity {
                     L = h / i;
 
                     missing.setText("The missing variable is L");
-                    answer.setText("Which has a value of : " + L + "cm");
+                    answer.setText("Which has a value of : " + L + " cm");
+                    //unit = "cm";
 
                     btn_print.setEnabled(computed);
 
@@ -293,9 +300,11 @@ public class HydraulicGradientActivity extends AppCompatActivity {
                                 if(item.equals("mm")){
                                     mm_L = L * 10;
                                     converted.setText(mm_L + " mm");
+                                    //converted_unit = "mm";
                                 } else if (item.equals("m")){
                                     m_L = L / 100;
                                     converted.setText(m_L + " m");
+                                    //converted_unit = "m";
                                 }
                             }
                         }
@@ -390,6 +399,9 @@ public class HydraulicGradientActivity extends AppCompatActivity {
 
             Font titleConverted = new Font(fontName,36.6f,Font.NORMAL   ,BaseColor.BLACK);
             addNewItem(document,"Converted to " + item, Element.ALIGN_CENTER,titleConverted);
+
+            Font titleConvert = new Font(fontName,fontSize,Font.NORMAL,colorAccent);
+            addNewItem(document,converted.getText().toString(),Element.ALIGN_CENTER,titleConvert);
 
 
             document.close();
