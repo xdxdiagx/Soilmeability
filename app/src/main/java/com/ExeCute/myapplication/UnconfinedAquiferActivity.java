@@ -191,6 +191,8 @@ public class UnconfinedAquiferActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_K.getText().toString().equals("") && !num_Q.getText().toString().equals("")
                         && !num_logr1.getText().toString().equals("") && !num_r2.getText().toString().equals("")
                         && !num_h1.getText().toString().equals("")
@@ -209,7 +211,7 @@ public class UnconfinedAquiferActivity extends AppCompatActivity {
                     K = (Q * Math.log(logr1 / r2)) / ((3.14) * ((h1 * h1) - (h2 * h2)));
 
                     missing.setText("The missing variable is K");
-                    answer.setText("Which has a value of : \n" + K  + " cm/sec");
+                    answer.setText("Which has a value of : \n" + K  + " m/sec");
 
                     btn_print.setEnabled(computed);
                     //missing.setText("i is missing which has a value of: ");
@@ -268,7 +270,7 @@ public class UnconfinedAquiferActivity extends AppCompatActivity {
                     Q = (K * 3.14 * ((h1 * h1) - (h2 * h2))) / (Math.log(logr1 / r2));
 
                     missing.setText("The missing variable is Q");
-                    answer.setText("Which has a value of : " + Q + " cm^3/sec");
+                    answer.setText("Which has a value of : " + Q + " m^3/sec");
 
                     btn_print.setEnabled(computed);
 

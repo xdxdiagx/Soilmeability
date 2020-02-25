@@ -211,6 +211,8 @@ public class EquivalentHorizontalConductivityActivity extends AppCompatActivity 
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_Kh.getText().toString().equals("") && !num_H.getText().toString().equals("")
                         && !num_K1.getText().toString().equals("") && !num_K2.getText().toString().equals("")
                         && !num_K3.getText().toString().equals("") && !num_H1.getText().toString().equals("")

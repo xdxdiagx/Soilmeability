@@ -152,6 +152,8 @@ public class HydraulicGradientActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_i.getText().toString().equals("") && !num_h.getText().toString().equals("")
                         && !num_L.getText().toString().equals("")) {
 

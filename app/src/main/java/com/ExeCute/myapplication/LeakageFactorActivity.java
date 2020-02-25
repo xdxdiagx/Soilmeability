@@ -152,6 +152,8 @@ public class LeakageFactorActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_B.getText().toString().equals("") && !num_kb.getText().toString().equals("")
                         && !num_KB.getText().toString().equals("")) {
 

@@ -150,6 +150,8 @@ public class DischargeVelocityActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_V.getText().toString().equals("") && !num_K.getText().toString().equals("")
                         && !num_i.getText().toString().equals("")) {
 

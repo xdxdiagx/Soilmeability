@@ -211,6 +211,8 @@ public class EquivalentVerticalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_Kv.getText().toString().equals("") && !num_T.getText().toString().equals("")
                         && !num_A.getText().toString().equals("") && !num_B.getText().toString().equals("")
                         && !num_C.getText().toString().equals("") && !num_H1.getText().toString().equals("")

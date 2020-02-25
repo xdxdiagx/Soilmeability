@@ -161,6 +161,8 @@ public class FlowRateActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_q.getText().toString().equals("") && !num_K.getText().toString().equals("")
                         && !num_i.getText().toString().equals("") && !num_A.getText().toString().equals("")) {
 
@@ -301,8 +303,9 @@ public class FlowRateActivity extends AppCompatActivity {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                            if(parent.getItemAtPosition(position).equals("Choose")){
+                            if(parent.getItemAtPosition(position).equals("")){
                                 converted.setText(" ");
+
                                 item = "none";
                                 //item = parent.getItemAtPosition(position).toString();
                                 //Toast.makeText(parent.getContext(), "per sec", Toast.LENGTH_SHORT).show();

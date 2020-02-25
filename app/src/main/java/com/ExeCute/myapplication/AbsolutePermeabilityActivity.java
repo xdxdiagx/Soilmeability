@@ -176,6 +176,8 @@ public class AbsolutePermeabilityActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_k.getText().toString().equals("") && !num_K.getText().toString().equals("")
                         && !num_N.getText().toString().equals("") && !num_Y.getText().toString().equals("")) {
 

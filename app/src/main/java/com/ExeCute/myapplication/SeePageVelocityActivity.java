@@ -150,6 +150,8 @@ public class SeePageVelocityActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_Vs.getText().toString().equals("") && !num_V.getText().toString().equals("")
                         && !num_n.getText().toString().equals("")) {
 

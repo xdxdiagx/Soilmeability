@@ -199,6 +199,8 @@ public class FallingHeadActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_K.getText().toString().equals("") && !num_a.getText().toString().equals("")
                         && !num_L.getText().toString().equals("") && !num_A.getText().toString().equals("")
                         && !num_t.getText().toString().equals("") && !num_h1.getText().toString().equals("")
@@ -333,7 +335,7 @@ public class FallingHeadActivity extends AppCompatActivity {
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    a = Double.parseDouble(num_L.getText().toString());
+                    a = Double.parseDouble(num_a.getText().toString());
                     A = Double.parseDouble(num_A.getText().toString());
                     t = Double.parseDouble(num_t.getText().toString());
                     h1 = Double.parseDouble(num_h1.getText().toString());
@@ -516,10 +518,10 @@ public class FallingHeadActivity extends AppCompatActivity {
                     computed = true;
 
                     K = Double.parseDouble(num_K.getText().toString());
-                    a = Double.parseDouble(num_L.getText().toString());
+                    a = Double.parseDouble(num_a.getText().toString());
                     L = Double.parseDouble(num_L.getText().toString());
                     A = Double.parseDouble(num_A.getText().toString());
-                    t = Double.parseDouble(num_h1.getText().toString());
+                    t = Double.parseDouble(num_t.getText().toString());
                     h2 = Double.parseDouble(num_h2.getText().toString());
 
                     h1 = (K / (a * L)) * (Math.log(h2 / (A * t)));

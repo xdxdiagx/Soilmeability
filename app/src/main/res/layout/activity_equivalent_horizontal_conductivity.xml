@@ -31,6 +31,27 @@
 
             android:textSize="36sp" />
 
+        <TextView
+            android:id="@+id/text_view_Kh"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_equivalent_horizontal_conductivity"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="141dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="Kh (cm/sec)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="15sp" />
+
         <EditText
             android:id="@+id/edit_text_Kh_2"
             android:layout_width="177dp"
@@ -49,6 +70,27 @@
             android:hint="Enter the value for Kh"
             android:inputType="numberDecimal|numberSigned" />
 
+        <TextView
+            android:id="@+id/text_view_H"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_Kh_2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="H (cm)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/edit_text_H_2"
             android:layout_width="177dp"
@@ -65,6 +107,27 @@
             android:layout_marginRight="100dp"
             android:hint="Enter the value for H"
             android:inputType="numberDecimal|numberSigned" />
+
+        <TextView
+            android:id="@+id/text_view_K1"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_H_2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="K1 (cm/sec)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/edit_text_K1_2"
@@ -83,6 +146,27 @@
             android:hint="Enter the value for K1"
             android:inputType="numberDecimal|numberSigned" />
 
+        <TextView
+            android:id="@+id/text_view_K2"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_K1_2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="K2 (cm/sec)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="15sp" />
+
         <EditText
             android:id="@+id/edit_text_K2_2"
             android:layout_width="wrap_content"
@@ -99,6 +183,27 @@
             android:layout_below="@id/edit_text_K1_2"
             android:hint="Enter the value for K2"
             android:inputType="numberDecimal|numberSigned" />
+
+        <TextView
+            android:id="@+id/text_view_K3"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_K2_2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="K3 (cm/sec)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="15sp" />
 
         <EditText
             android:id="@+id/edit_text_K3_2"
@@ -117,6 +222,27 @@
             android:hint="Enter the value for K3"
             android:inputType="numberDecimal|numberSigned" />
 
+        <TextView
+            android:id="@+id/text_view_H1_1"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_K3_2"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="H1 (cm)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/edit_text_H1_3"
             android:layout_width="wrap_content"
@@ -134,6 +260,27 @@
             android:hint="Enter the value for H1"
             android:inputType="numberDecimal|numberSigned" />
 
+        <TextView
+            android:id="@+id/text_view_H2_2"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_H1_3"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="H2 (cm)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="18sp" />
+
         <EditText
             android:id="@+id/edit_text_H2_3"
             android:layout_width="wrap_content"
@@ -150,6 +297,27 @@
             android:layout_below="@id/edit_text_H1_3"
             android:hint="Enter the value for H2"
             android:inputType="numberDecimal|numberSigned" />
+
+        <TextView
+            android:id="@+id/text_view_H3"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_text_H2_3"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentEnd="true"
+
+            android:layout_alignParentRight="true"
+            android:layout_marginStart="23dp"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="298dp"
+            android:layout_marginRight="298dp"
+            android:text="H3 (cm)"
+            android:textAlignment="center"
+            android:textColor="@android:color/black"
+
+            android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edit_text_H3_3"

@@ -155,6 +155,8 @@ public class TransmissivityActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_T.getText().toString().equals("") && !num_K.getText().toString().equals("")
                         && !num_b.getText().toString().equals("")) {
 

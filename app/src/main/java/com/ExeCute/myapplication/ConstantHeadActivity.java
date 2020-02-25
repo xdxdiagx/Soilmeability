@@ -198,6 +198,8 @@ public class ConstantHeadActivity extends AppCompatActivity {
             public void onClick(View view) {
                 converted.setText(" ");
 
+                item = "none";
+
                 if(num_K.getText().toString().equals("") && !num_Q.getText().toString().equals("")
                         && !num_L.getText().toString().equals("") && !num_A.getText().toString().equals("")
                         && !num_t.getText().toString().equals("") && !num_h.getText().toString().equals("")) {
